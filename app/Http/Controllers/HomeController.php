@@ -72,10 +72,35 @@ class HomeController extends Controller
             ]
         ];
 
-        return view('home', [
+        return view('LandingPage', [
             'stats' => $stats,
             'destinations' => $destinations,
             'categories' => $categories
         ]);
+    }
+
+    public function publicHome()
+    {
+        return view('PublicUsers.home');
+    }
+
+    public function publicEstablishments()
+    {
+        return view('PublicUsers.establishments');
+    }
+
+    public function publicEvents()
+    {
+        return view('PublicUsers.events');
+    }
+
+    public function publicTravelGuide()
+    {
+        return view('PublicUsers.travel-guide');
+    }
+
+    public function publicEmergency()
+    {
+        return view('PublicUsers.emergency');
     }
 }
