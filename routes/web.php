@@ -19,6 +19,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 
 // ─────────────────────────────────────────────────────────────────
 // PUBLIC TOURIST ROUTES  (role: public_tourist)
@@ -67,7 +69,6 @@ Route::prefix('admin')
         Route::get('/establishments', [PTOAdminController::class, 'establishments'])->name('establishments');
         Route::get('/qr-generation', [PTOAdminController::class, 'qrGeneration'])->name('qr-generation');
         Route::get('/destinations', [PTOAdminController::class, 'destinations'])->name('destinations');
-        Route::get('/approvals', [PTOAdminController::class, 'approvals'])->name('approvals');
         Route::get('/reports', [PTOAdminController::class, 'reports'])->name('reports');
         Route::get('/user-management', [PTOAdminController::class, 'userManagement'])->name('user-management');
         Route::get('/audit-logs', [PTOAdminController::class, 'auditLogs'])->name('audit-logs');

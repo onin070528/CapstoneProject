@@ -627,3 +627,51 @@
 .login-card__input-wrap:focus-within .login-card__input-icon {
     color: #004e5b;
 }
+
+/* ============================================================
+   REGISTER PAGE — additional styles
+   ============================================================ */
+
+/* Password strength meter */
+.register-pw-strength {
+    display: none;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 0.25rem;
+}
+
+.register-pw-strength__bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    overflow: hidden;
+}
+
+.register-pw-strength__fill {
+    height: 100%;
+    border-radius: 999px;
+    width: 0%;
+    transition: width 0.35s ease, background 0.35s ease;
+}
+
+.register-pw-strength__text {
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+    min-width: 72px;
+    text-align: right;
+    transition: color 0.35s ease;
+}
+
+/* Terms link inside checkbox label */
+.register-terms-link {
+    color: #004e5b;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.register-terms-link:hover {
+    color: #003842;
+    text-decoration: underline;
+}

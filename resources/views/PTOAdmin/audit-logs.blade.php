@@ -36,7 +36,6 @@
                         <option>All actions</option>
                         <option>Logins</option>
                         <option>Approvals</option>
-                        <option>QR Generation</option>
                         <option>Announcements</option>
                         <option>Settings Updates</option>
                     </select>
@@ -83,7 +82,6 @@
                     <tr class="hover:bg-slate-50/50 transition duration-150">
                         <td class="py-4 px-6 text-slate-800 font-bold">AL-1002</td>
                         <td class="py-4 px-6 font-semibold text-slate-800">Liza Bautista</td>
-                        <td class="py-4 px-6 text-slate-600">Generated QR code</td>
                         <td class="py-4 px-6 text-slate-500 font-normal">Dahican Beach</td>
                         <td class="py-4 px-6 text-slate-500">2026-06-18 10:14</td>
                         <td class="py-4 px-6 text-slate-400 font-mono text-xs">192.168.1.52</td>
@@ -143,7 +141,6 @@
                     <tr class="hover:bg-slate-50/50 transition duration-150">
                         <td class="py-4 px-6 text-slate-800 font-bold">AL-1008</td>
                         <td class="py-4 px-6 font-semibold text-slate-800">Maria Santos</td>
-                        <td class="py-4 px-6 text-slate-600">Generated QR code</td>
                         <td class="py-4 px-6 text-slate-500 font-normal">EST-007</td>
                         <td class="py-4 px-6 text-slate-500">2026-06-12 16:56</td>
                         <td class="py-4 px-6 text-slate-400 font-mono text-xs">192.168.1.58</td>

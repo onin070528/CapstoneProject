@@ -38,29 +38,6 @@
                 </div>
             </div>
 
-            <!-- QR Settings Card -->
-            <div class="bg-white rounded-xl border border-slate-100 shadow-sm p-6 space-y-6">
-                <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">QR Settings</h3>
-                
-                <!-- QR Landing Domain -->
-                <div class="space-y-2">
-                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">QR Landing Domain</label>
-                    <input type="text" value="itour.gov.ph" class="w-full bg-slate-50 border border-slate-200 px-4 py-2.5 text-sm rounded-[6px] focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#0a4e5c] transition-all">
-                </div>
-
-                <!-- QR Format -->
-                <div class="space-y-2">
-                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">QR Format</label>
-                    <div class="relative">
-                        <select class="w-full appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-sm px-4 py-2.5 pr-10 rounded-[6px] focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#0a4e5c] transition-all">
-                            <option>PNG (300dpi)</option>
-                            <option>JPEG (300dpi)</option>
-                            <option>SVG (Vector)</option>
-                        </select>
-                        <i class="fas fa-chevron-down text-[10px] text-slate-400 absolute right-3.5 top-3.5 pointer-events-none"></i>
-                    </div>
-                </div>
-
                 <!-- Checkbox -->
                 <div class="flex items-center gap-3">
                     <input type="checkbox" id="auto-regen" checked class="w-4 h-4 text-[#0a4e5c] border-slate-300 rounded focus:ring-[#0a4e5c]">

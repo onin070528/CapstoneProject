@@ -165,7 +165,7 @@
 
             {{-- Sign up link --}}
             <p class="login-card__signup">
-                New to iTOUR? <a href="#">Create an account</a>
+                New to iTOUR? <a href="{{ route('register') }}">Create an account</a>
             </p>
         </div>
 

@@ -36,11 +36,6 @@ class PTOAdminController extends Controller
         return view('PTOAdmin.destinations');
     }
 
-    public function approvals()
-    {
-        return view('PTOAdmin.approvals');
-    }
-
     public function reports()
     {
         return view('PTOAdmin.reports');
