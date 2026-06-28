@@ -489,7 +489,7 @@
 /* Social Buttons */
 .login-card__socials {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 0.75rem;
 }
 
@@ -530,10 +530,6 @@
     background: #e8f0fe;
     color: #4285f4;
 }
-.login-card__social-icon--microsoft {
-    background: #fff4e6;
-    color: #f25022;
-}
 
 /* Sign up link */
 .login-card__signup {
@@ -549,6 +545,57 @@
     transition: color 0.2s;
 }
 .login-card__signup a:hover {
+    color: #003842;
+    text-decoration: underline;
+}
+
+/* ---- REGISTRATION-SPECIFIC STYLES ---- */
+
+/* Name row: first & last name side by side */
+.login-card__name-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+/* Terms checkbox */
+.login-card__terms {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #475569;
+    cursor: pointer;
+    user-select: none;
+    line-height: 1.5;
+}
+.login-card__terms a {
+    color: #004e5b;
+    font-weight: 600;
+    text-decoration: none;
+}
+.login-card__terms a:hover {
+    text-decoration: underline;
+}
+.login-card__terms .login-card__checkbox-custom {
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+/* Sign in link (registration page) */
+.login-card__signin {
+    text-align: center;
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-top: 1.25rem;
+}
+.login-card__signin a {
+    color: #004e5b;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.login-card__signin a:hover {
     color: #003842;
     text-decoration: underline;
 }

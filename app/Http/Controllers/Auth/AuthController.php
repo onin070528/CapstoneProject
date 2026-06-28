@@ -54,6 +54,18 @@ class AuthController extends Controller
     }
 
     /**
+     * Show the registration form.
+     */
+    public function showRegister()
+    {
+        if (Auth::check()) {
+            return redirect(Auth::user()->dashboardRoute());
+        }
+
+        return view('auth.register');
+    }
+
+    /**
      * Log the user out and destroy the session.
      */
     public function logout(Request $request)
