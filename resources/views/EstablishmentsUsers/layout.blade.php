@@ -82,7 +82,7 @@
                     <span class="text-[10px] text-slate-400 truncate">Establishment Owner</span>
                 </div>
             </div>
-            <a href="/" class="text-slate-400 hover:text-white p-1.5 rounded transition">
+            <a href="{{ route('logout') }}" class="text-slate-400 hover:text-white p-1.5 rounded transition">
                 <i class="fas fa-sign-out-alt text-sm"></i>
             </a>
         </div>
@@ -184,7 +184,7 @@
                         <span class="text-[10px] text-slate-400 truncate">Establishment Owner</span>
                     </div>
                 </div>
-                <a href="/" class="text-slate-400 hover:text-white p-1.5 rounded transition">
+                <a href="{{ route('logout') }}" class="text-slate-400 hover:text-white p-1.5 rounded transition">
                     <i class="fas fa-sign-out-alt text-sm"></i>
                 </a>
             </div>
