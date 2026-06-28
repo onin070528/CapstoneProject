@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -54,7 +56,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Show the registration form.
+     * Show the registration form (public tourists only).
      */
     public function showRegister()
     {
@@ -63,6 +65,36 @@ class AuthController extends Controller
         }
 
         return view('auth.register');
+    }
+
+    /**
+     * Handle registration form submission.
+     * Creates a new public_tourist user, logs them in, and redirects.
+     */
+    public function register(Request $request)
+    {
+        $validated = $request->validate([
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'terms'    => ['accepted'],
+        ], [
+            'terms.accepted' => 'You must agree to the Terms of Service and Privacy Policy.',
+        ]);
+
+        $user = User::create([
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
+            'password' => $validated['password'],
+            'role'     => 'public_tourist',
+        ]);
+
+        Auth::login($user);
+
+        $request->session()->regenerate();
+
+        return redirect($user->dashboardRoute())
+            ->with('success', 'Welcome to iTOUR, ' . $user->name . '!');
     }
 
     /**

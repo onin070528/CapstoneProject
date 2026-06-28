@@ -171,11 +171,11 @@
                     </button>
                 </div>
 
-                {{-- Sign up link --}}
-                <p class="login-card__signup">
-                    New to iTOUR? <a href="{{ route('register') }}">Create an account</a>
-                </p>
-            </div>
+            {{-- Sign up link --}}
+            <p class="login-card__signup">
+                New to iTOUR? <a href="{{ route('register') }}">Create an account</a>
+            </p>
+        </div>
 
             {{-- Terms footer --}}
             <p class="login-right__terms">

@@ -1,9 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-[#f4f7f6] flex font-sans" x-data="{ mobileSidebarOpen: false }">
+<div class="h-screen overflow-hidden bg-[#f4f7f6] flex font-sans" x-data="{ 
+    mobileSidebarOpen: false, 
+    announcementModalOpen: false, 
+    announcementTitle: '', 
+    announcementType: 'advisory', 
+    announcementTarget: 'establishments', 
+    announcementBody: '', 
+    announcementPriority: 'info', 
+    submitAnnouncement() { 
+        alert('📢 Advisory Broadcast Sent Successfully!\n\nTarget Recipients: ' + (this.announcementTarget === 'establishments' ? 'Establishment Owners' : 'Public Users') + '\nTitle: ' + this.announcementTitle + '\nPriority: ' + this.announcementPriority.toUpperCase() + '\nContent: ' + this.announcementBody); 
+        this.announcementTitle = ''; 
+        this.announcementBody = ''; 
+        this.announcementModalOpen = false; 
+    } 
+}">
     <!-- Sidebar for Desktop -->
-    <aside class="hidden lg:flex flex-col w-64 bg-[#0f1f2c] text-slate-300 shrink-0 border-r border-slate-800">
+    <aside class="hidden lg:flex flex-col w-64 bg-[#0f1f2c] text-slate-300 shrink-0 border-r border-slate-800 fixed top-0 left-0 h-screen z-40">
         <!-- Sidebar Header (Logo) -->
         <div class="h-20 flex items-center gap-3 px-6 border-b border-slate-800/60">
             <div class="bg-[#0e505f] text-white rounded-[6px] w-9 h-9 flex items-center justify-center font-bold text-base tracking-tight shrink-0 shadow-sm">
@@ -44,17 +58,9 @@
                         <i class="fas fa-building text-base w-5"></i>
                         <span>Establishments</span>
                     </a>
-                    <a href="/admin/qr-generation" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 {{ ($activePage ?? '') === 'qr-generation' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
-                        <i class="fas fa-qrcode text-base w-5"></i>
-                        <span>QR Generation</span>
-                    </a>
                     <a href="/admin/destinations" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 {{ ($activePage ?? '') === 'destinations' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
                         <i class="fas fa-map-pin text-base w-5"></i>
                         <span>Destinations</span>
-                    </a>
-                    <a href="/admin/approvals" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 {{ ($activePage ?? '') === 'approvals' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
-                        <i class="fas fa-check-double text-base w-5"></i>
-                        <span>Approvals</span>
                     </a>
                 </div>
             </div>
@@ -165,17 +171,9 @@
                             <i class="fas fa-building text-base w-5"></i>
                             <span>Establishments</span>
                         </a>
-                        <a href="/admin/qr-generation" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ ($activePage ?? '') === 'qr-generation' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
-                            <i class="fas fa-qrcode text-base w-5"></i>
-                            <span>QR Generation</span>
-                        </a>
                         <a href="/admin/destinations" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ ($activePage ?? '') === 'destinations' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
                             <i class="fas fa-map-pin text-base w-5"></i>
                             <span>Destinations</span>
-                        </a>
-                        <a href="/admin/approvals" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ ($activePage ?? '') === 'approvals' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
-                            <i class="fas fa-check-double text-base w-5"></i>
-                            <span>Approvals</span>
                         </a>
                     </div>
                 </div>
@@ -230,9 +228,9 @@
     </div>
 
     <!-- Main Content Area -->
-    <div class="flex-1 flex flex-col min-h-screen overflow-x-hidden">
+    <div class="flex flex-col flex-1 h-screen overflow-hidden lg:ml-64">
         <!-- Top Navbar -->
-        <header class="h-20 bg-white border-b border-slate-100 px-4 sm:px-6 lg:px-8 flex items-center justify-between shrink-0 sticky top-0 z-30">
+        <header class="h-20 bg-white border-b border-slate-100 px-4 sm:px-6 lg:px-8 flex items-center justify-between shrink-0 z-30">
             <div class="flex items-center gap-4">
                 <!-- Hamburger Button for Mobile -->
                 <button @click="mobileSidebarOpen = true" class="lg:hidden p-2 -ml-2 text-slate-600 hover:text-slate-800 rounded-md focus:outline-none">
@@ -244,16 +242,14 @@
 
             <!-- Navbar Center / Right: Search and User Utilities -->
             <div class="flex items-center gap-4 sm:gap-6">
-                <!-- Search bar -->
-                <div class="flex items-center">
-                    <input type="text" placeholder="Search..." class="w-45 sm:w-60 bg-slate-50 border border-slate-200 px-4 py-2 text-sm rounded-l-[6px] focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#0a4e5c]/30 focus:border-[#0a4e5c] transition-all">
-                    <button class="bg-[#0a4e5c] hover:bg-[#073640] text-white px-4 py-2 text-sm font-semibold rounded-r-[6px] transition-colors shadow-sm">
-                        Search
-                    </button>
-                </div>
-
                 <!-- Utilities Group -->
                 <div class="flex items-center gap-3">
+                    <!-- Broadcast/Announcement Button -->
+                    <button @click="announcementModalOpen = true" class="flex items-center gap-2 bg-[#0a4e5c] hover:bg-[#073640] text-white px-3 py-2 text-xs font-bold rounded-[6px] transition-colors shadow-sm cursor-pointer mr-1">
+                        <i class="fas fa-bullhorn text-[12px]"></i>
+                        <span>Broadcast Announcement</span>
+                    </button>
+
                     <!-- Notifications -->
                     <div class="w-9 h-9 border border-slate-200 rounded-[6px] flex items-center justify-center relative text-slate-500 hover:text-[#0a4e5c] hover:border-[#0a4e5c] transition duration-200 bg-white cursor-pointer shadow-xs">
                         <i class="fas fa-bell text-[15px]"></i>
@@ -269,14 +265,119 @@
         </header>
 
         <!-- Dynamic Content Body -->
-        <main class="flex-grow p-4 sm:p-6 lg:p-8 bg-[#f4f7f6]">
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-[#f4f7f6]">
             @yield('admin-content')
         </main>
     </div>
 </div>
 
-<!-- Add simple vanilla JS toggle backup for systems not compiling Alpine.js -->
+<!-- Announcement/Advisory Broadcast Modal Overlay -->
+<div x-show="announcementModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs" x-cloak style="display: none;">
+    <!-- Modal Container -->
+    <div class="bg-white rounded-xl shadow-2xl border border-slate-100 w-full max-w-2xl overflow-hidden relative z-10 animate-modalIn" @click.away="announcementModalOpen = false">
+        <!-- Header -->
+        <div class="bg-[#0a4e5c] text-white px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <i class="fas fa-bullhorn text-lg"></i>
+                <div>
+                    <h3 class="font-extrabold text-base leading-none">Broadcast Advisory / Announcement</h3>
+                    <p class="text-[10px] text-teal-200 font-semibold mt-1">Send a push notification or bulletin to users and owners.</p>
+                </div>
+            </div>
+            <button @click="announcementModalOpen = false" class="text-white/80 hover:text-white focus:outline-none cursor-pointer">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Form Body -->
+        <form @submit.prevent="submitAnnouncement()" class="p-6 space-y-4">
+            <!-- Title -->
+            <div class="space-y-1">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Title / Subject</label>
+                <input type="text" x-model="announcementTitle" required placeholder="e.g., Extreme Weather Warning / System Maintenance" class="w-full bg-slate-50 border border-slate-200 px-3.5 py-2.5 text-sm rounded-[6px] focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#0a4e5c] transition-all text-slate-800">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Broadcast Type -->
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Broadcast Type</label>
+                    <div class="relative">
+                        <select x-model="announcementType" class="w-full appearance-none bg-slate-50 border border-slate-200 px-3.5 py-2.5 pr-10 text-sm rounded-[6px] focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#0a4e5c] transition-all text-slate-850">
+                            <option value="advisory">Advisory (System/Weather/General)</option>
+                            <option value="announcement">Announcement (Promo/Events/News)</option>
+                        </select>
+                        <i class="fas fa-chevron-down text-[10px] text-slate-400 absolute right-3.5 top-4 pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <!-- Priority Level -->
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Priority Level</label>
+                    <div class="relative">
+                        <select x-model="announcementPriority" class="w-full appearance-none bg-slate-50 border border-slate-200 px-3.5 py-2.5 pr-10 text-sm rounded-[6px] focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#0a4e5c] transition-all text-slate-850">
+                            <option value="info">Info (Standard Bulletin)</option>
+                            <option value="warning">Warning (Urgent Updates)</option>
+                            <option value="critical">Critical (Immediate Actions Required)</option>
+                        </select>
+                        <i class="fas fa-chevron-down text-[10px] text-slate-400 absolute right-3.5 top-4 pointer-events-none"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recipient Target Choice (Establishments Owners / Public Users) -->
+            <div class="space-y-1">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Target Recipients</label>
+                <div class="grid grid-cols-2 gap-4">
+                    <label class="flex items-center gap-3 border border-slate-200 hover:border-[#0a4e5c] p-3 rounded-lg cursor-pointer transition select-none" :class="announcementTarget === 'establishments' ? 'border-[#0a4e5c] bg-slate-50/50' : 'bg-white'">
+                        <input type="radio" name="recipient_target" value="establishments" x-model="announcementTarget" class="w-4 h-4 text-[#0a4e5c] focus:ring-[#0a4e5c]">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-slate-700">Establishments</span>
+                            <span class="text-[9px] text-slate-400">All registered hotel / resort owners</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 border border-slate-200 hover:border-[#0a4e5c] p-3 rounded-lg cursor-pointer transition select-none" :class="announcementTarget === 'public' ? 'border-[#0a4e5c] bg-slate-50/50' : 'bg-white'">
+                        <input type="radio" name="recipient_target" value="public" x-model="announcementTarget" class="w-4 h-4 text-[#0a4e5c] focus:ring-[#0a4e5c]">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-slate-700">Public Users</span>
+                            <span class="text-[9px] text-slate-400">All registered tourists / visitors</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Message Body -->
+            <div class="space-y-1">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Advisory Message Content</label>
+                <textarea x-model="announcementBody" rows="4" required placeholder="Type details, rules, or alerts here..." class="w-full bg-slate-50 border border-slate-200 px-3.5 py-2.5 text-sm rounded-[6px] focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#0a4e5c] transition-all resize-none text-slate-800"></textarea>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+                <button type="button" @click="announcementModalOpen = false" class="bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-4 py-2.5 text-xs font-bold rounded-[6px] transition cursor-pointer">
+                    Cancel
+                </button>
+                <button type="submit" class="bg-[#0a4e5c] hover:bg-[#073640] text-white px-5 py-2.5 text-xs font-bold rounded-[6px] transition flex items-center gap-1.5 shadow-sm cursor-pointer">
+                    <i class="fas fa-paper-plane"></i> Send Announcement
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    [x-cloak] { display: none !important; }
+    @keyframes modalIn {
+        from { opacity: 0; transform: translateY(12px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .animate-modalIn {
+        animation: modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+</style>
+
+<!-- Simple vanilla JS backup -->
 <script>
+
     document.addEventListener('DOMContentLoaded', function () {
         if (typeof Alpine === 'undefined') {
             const btn = document.querySelector('button[class*="lg:hidden"]');

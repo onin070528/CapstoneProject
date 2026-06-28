@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-[#f4f7f6] flex font-sans" x-data="{ mobileSidebarOpen: false }">
+<div class="h-screen overflow-hidden bg-[#f4f7f6] flex font-sans" x-data="{ mobileSidebarOpen: false }">
     <!-- Sidebar for Desktop -->
-    <aside class="hidden lg:flex flex-col w-64 bg-[#0f1f2c] text-slate-300 shrink-0 border-r border-slate-800">
+    <aside class="hidden lg:flex flex-col w-64 bg-[#0f1f2c] text-slate-300 shrink-0 border-r border-slate-800 fixed top-0 left-0 h-screen z-40">
         <!-- Sidebar Header (Logo) -->
         <div class="h-20 flex items-center gap-3 px-6 border-b border-slate-800/60">
             <div class="bg-[#0e505f] text-white rounded-[6px] w-9 h-9 flex items-center justify-center font-bold text-base tracking-tight shrink-0 shadow-sm">
@@ -24,10 +24,6 @@
                     <a href="/establishment/dashboard" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 {{ ($activePage ?? '') === 'dashboard' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
                         <i class="fas fa-th-large text-base w-5"></i>
                         <span>Dashboard</span>
-                    </a>
-                    <a href="/establishment/profile" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 {{ ($activePage ?? '') === 'profile' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
-                        <i class="fas fa-id-card text-base w-5"></i>
-                        <span>Establishment Profile</span>
                     </a>
                     <a href="/establishment/qr-code" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 {{ ($activePage ?? '') === 'qr-code' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
                         <i class="fas fa-qrcode text-base w-5"></i>
@@ -51,6 +47,18 @@
                 </div>
             </div>
 
+            <!-- PROFILE SETTINGS Section -->
+                 <div>
+                    <span class="px-3 text-[10px] font-bold tracking-widest text-slate-500 uppercase">Profile Settings</span>
+                    <div class="mt-2 space-y-1">
+                        <a href="/establishment/profile" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition {{ ($activePage ?? '') === 'profile' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
+                            <i class="fas fa-id-card text-base w-5"></i>
+                            <span>Profile</span>
+                        </a>
+                    </div>
+                </div>
+
+
             <!-- ENGAGEMENT Section -->
             <div>
                 <span class="px-3 text-[10px] font-bold tracking-widest text-slate-500 uppercase">Engagement</span>
@@ -64,8 +72,8 @@
                         <span>Reports</span>
                     </a>
                     <a href="/establishment/notifications" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 {{ ($activePage ?? '') === 'notifications' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
-                        <i class="fas fa-bell text-base w-5"></i>
-                        <span>Notifications</span>
+                        <i class="fas fa-history text-base w-5"></i>
+                        <span>Activity Log</span>
                     </a>
                 </div>
             </div>
@@ -127,10 +135,6 @@
                             <i class="fas fa-th-large text-base w-5"></i>
                             <span>Dashboard</span>
                         </a>
-                        <a href="/establishment/profile" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition {{ ($activePage ?? '') === 'profile' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
-                            <i class="fas fa-id-card text-base w-5"></i>
-                            <span>Establishment Profile</span>
-                        </a>
                         <a href="/establishment/qr-code" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition {{ ($activePage ?? '') === 'qr-code' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
                             <i class="fas fa-qrcode text-base w-5"></i>
                             <span>QR Code</span>
@@ -153,6 +157,17 @@
                     </div>
                 </div>
 
+
+                 <div>
+                    <span class="px-3 text-[10px] font-bold tracking-widest text-slate-500 uppercase">Profile Settings</span>
+                    <div class="mt-2 space-y-1">
+                        <a href="/establishment/profile" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition {{ ($activePage ?? '') === 'profile' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
+                            <i class="fas fa-id-card text-base w-5"></i>
+                            <span>Profile</span>
+                        </a>
+                    </div>
+                </div>
+
                 <!-- ENGAGEMENT Section -->
                 <div>
                     <span class="px-3 text-[10px] font-bold tracking-widest text-slate-500 uppercase">Engagement</span>
@@ -166,8 +181,8 @@
                             <span>Reports</span>
                         </a>
                         <a href="/establishment/notifications" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition {{ ($activePage ?? '') === 'notifications' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
-                            <i class="fas fa-bell text-base w-5"></i>
-                            <span>Notifications</span>
+                            <i class="fas fa-history text-base w-5"></i>
+                            <span>Activity Log</span>
                         </a>
                     </div>
                 </div>
@@ -192,9 +207,9 @@
     </div>
 
     <!-- Main Content Area -->
-    <div class="flex-1 flex flex-col min-h-screen overflow-x-hidden">
+    <div class="flex flex-col flex-1 h-screen overflow-hidden lg:ml-64">
         <!-- Top Navbar -->
-        <header class="h-20 bg-white border-b border-slate-100 px-4 sm:px-6 lg:px-8 flex items-center justify-between shrink-0 sticky top-0 z-30">
+        <header class="h-20 bg-white border-b border-slate-100 px-4 sm:px-6 lg:px-8 flex items-center justify-between shrink-0 z-30">
             <div class="flex items-center gap-4">
                 <!-- Hamburger Button for Mobile -->
                 <button @click="mobileSidebarOpen = true" class="lg:hidden p-2 -ml-2 text-slate-600 hover:text-slate-800 rounded-md focus:outline-none">
@@ -206,13 +221,6 @@
 
             <!-- Navbar Center / Right: Search and User Utilities -->
             <div class="flex items-center gap-4 sm:gap-6">
-                <!-- Search bar -->
-                <div class="flex items-center">
-                    <input type="text" placeholder="Search..." class="w-40 sm:w-60 bg-slate-50 border border-slate-200 px-4 py-2 text-sm rounded-l-[6px] focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#0a4e5c]/30 focus:border-[#0a4e5c] transition-all">
-                    <button class="bg-[#0a4e5c] hover:bg-[#073640] text-white px-4 py-2 text-sm font-semibold rounded-r-[6px] transition-colors shadow-sm">
-                        Search
-                    </button>
-                </div>
 
                 <!-- Utilities Group -->
                 <div class="flex items-center gap-3">
@@ -231,7 +239,7 @@
         </header>
 
         <!-- Dynamic Content Body -->
-        <main class="flex-grow p-4 sm:p-6 lg:p-8 bg-[#f4f7f6]">
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-[#f4f7f6]">
             @yield('establishment-content')
         </main>
     </div>
