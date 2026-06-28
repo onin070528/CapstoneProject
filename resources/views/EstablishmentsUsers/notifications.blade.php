@@ -115,7 +115,7 @@ function activityLog() {
         categories: [
             { value: 'all',          label: 'All',            icon: 'fa-layer-group' },
             { value: 'Check-In',     label: 'Check-Ins',      icon: 'fa-sign-in-alt' },
-            { value: 'Manual Entry', label: 'Manual Entry',   icon: 'fa-keyboard' },
+            { value: 'Arrival Recording', label: 'Arrival Recording',   icon: 'fa-pen-to-square' },
             { value: 'Report',       label: 'Reports',        icon: 'fa-chart-bar' },
             { value: 'Advisory',     label: 'Advisories',     icon: 'fa-bullhorn' },
             { value: 'System',       label: 'System',         icon: 'fa-cog' },
@@ -133,10 +133,10 @@ function activityLog() {
             },
             {
                 id: 2, date: '2026-06-28', time: '8:05 AM',
-                category: 'Manual Entry',
-                title: 'Manual visitor registration',
-                description: 'Kenji Tanaka (Male) manually encoded — Tokyo, Japan.',
-                icon: 'fa-keyboard', bgClass: 'bg-amber-50 text-amber-600',
+                category: 'Arrival Recording',
+                title: 'Arrival recording entry',
+                description: 'Kenji Tanaka (Male) recorded — Tokyo, Japan.',
+                icon: 'fa-pen-to-square', bgClass: 'bg-amber-50 text-amber-600',
                 badgeClass: 'bg-amber-50 text-amber-600 border border-amber-100',
                 meta: [{ icon: 'fa-user', value: 'Kenji Tanaka' }, { icon: 'fa-globe', value: 'Foreign' }]
             },
@@ -178,10 +178,10 @@ function activityLog() {
             },
             {
                 id: 7, date: '2026-06-24', time: '7:30 AM',
-                category: 'Manual Entry',
-                title: 'Bulk manual entry — 3 visitors',
-                description: '3 visitors encoded manually: Pedro Cruz, Sophie Martin, Liza Gomez.',
-                icon: 'fa-keyboard', bgClass: 'bg-amber-50 text-amber-600',
+                category: 'Arrival Recording',
+                title: 'Bulk arrival recording — 3 visitors',
+                description: '3 visitors recorded: Pedro Cruz, Sophie Martin, Liza Gomez.',
+                icon: 'fa-pen-to-square', bgClass: 'bg-amber-50 text-amber-600',
                 badgeClass: 'bg-amber-50 text-amber-600 border border-amber-100',
                 meta: [{ icon: 'fa-users', value: '3 entries' }, { icon: 'fa-keyboard', value: 'Manual' }]
             },

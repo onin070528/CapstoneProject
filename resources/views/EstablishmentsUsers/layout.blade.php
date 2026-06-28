@@ -41,8 +41,8 @@
                         <span>Registrations</span>
                     </a>
                     <a href="/establishment/manual-encoding" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 {{ ($activePage ?? '') === 'manual-encoding' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
-                        <i class="fas fa-keyboard text-base w-5"></i>
-                        <span>Manual Encoding</span>
+                        <i class="fas fa-pen-to-square text-base w-5"></i>
+                        <span>Arrival Recording</span>
                     </a>
                 </div>
             </div>
@@ -151,8 +151,8 @@
                             <span>Registrations</span>
                         </a>
                         <a href="/establishment/manual-encoding" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition {{ ($activePage ?? '') === 'manual-encoding' ? 'bg-[#1a2d3c] text-white' : 'text-slate-400 hover:bg-[#152733] hover:text-white' }}">
-                            <i class="fas fa-keyboard text-base w-5"></i>
-                            <span>Manual Encoding</span>
+                            <i class="fas fa-pen-to-square text-base w-5"></i>
+                            <span>Arrival Recording</span>
                         </a>
                     </div>
                 </div>
