@@ -37,9 +37,8 @@
 
                     {{-- Dropdown Menu --}}
                     <div id="profileDropdownMenu"
-                        class="absolute right-0 top-full mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-2xl z-[999] overflow-hidden"
-                        role="menu"
-                        style="display:none; opacity:0; transform: translateY(-6px); transition: opacity 0.18s ease, transform 0.18s ease;">
+                        class="absolute right-0 top-full mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-2xl z-[999] overflow-hidden hidden"
+                        role="menu">
 
                         {{-- Avatar + user info --}}
                         <div class="px-4 pt-4 pb-3 border-b border-slate-100 bg-gradient-to-br from-[#f0f9fa] to-white">
@@ -447,7 +446,7 @@
         </section>
 
         {{-- Feedback Form Modal --}}
-        <div id="feedbackModal" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8 bg-slate-950/55" style="display:none;">
+        <div id="feedbackModal" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8 bg-slate-950/55">
             <div class="w-full max-w-lg rounded-3xl bg-white shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] overflow-y-auto">
                 <div class="flex items-center justify-between gap-4 px-6 py-4 border-b border-slate-100 sticky top-0 bg-white z-10">
                     <div>
@@ -506,6 +505,114 @@
             </div>
         </div>
 
+        {{-- ─── Establishment Detail Modal ───────────────────────────── --}}
+        <div id="establishmentModal"
+             class="fixed inset-0 z-[70] hidden items-center justify-center px-3 py-4 sm:px-6 sm:py-8 bg-slate-950/65 backdrop-blur-sm"
+             role="dialog" aria-modal="true" aria-labelledby="estModalTitle">
+            <div id="establishmentModalPanel"
+                 class="w-full max-w-3xl bg-white rounded-3xl shadow-2xl flex flex-col overflow-hidden max-h-[95vh]"
+                 style="transform:scale(0.96);opacity:0;transition:transform 0.22s cubic-bezier(.4,0,.2,1),opacity 0.22s ease;">
+
+                {{-- ── Hero image ── --}}
+                <div class="relative shrink-0 h-52 sm:h-64 bg-slate-200 overflow-hidden">
+                    <img id="estModalImage" src="" alt=""
+                         class="absolute inset-0 w-full h-full object-cover"
+                         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/85 via-slate-900/25 to-transparent"></div>
+                    <button type="button" id="estModalClose"
+                            class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 backdrop-blur text-white hover:bg-white/35 transition flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/50"
+                            aria-label="Close establishment detail">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                    <div class="absolute top-4 left-4 flex flex-wrap gap-1.5" id="estModalBadges"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5">
+                        <p class="text-[11px] font-bold uppercase tracking-[0.16em] text-teal-300" id="estModalCategory"></p>
+                        <h2 class="mt-1 text-2xl sm:text-3xl font-extrabold text-white leading-tight" id="estModalTitle">—</h2>
+                        <div class="mt-2 flex items-center gap-3 flex-wrap">
+                            <span class="inline-flex items-center gap-1.5 text-sm font-bold" id="estModalRatingBadge"></span>
+                            <span class="text-white/65 text-xs" id="estModalLocation"></span>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- ── Scrollable body ── --}}
+                <div class="overflow-y-auto flex-1 divide-y divide-slate-100">
+
+                    {{-- About --}}
+                    <div class="p-5 sm:p-6">
+                        <h3 class="text-[11px] font-bold uppercase tracking-[0.16em] text-teal-600 mb-2">About this place</h3>
+                        <p class="text-sm text-slate-600 leading-6" id="estModalDescription"></p>
+                        <div class="mt-4 flex flex-wrap gap-2" id="estModalDetails"></div>
+                    </div>
+
+                    {{-- Visitor Reviews --}}
+                    <div class="p-5 sm:p-6">
+                        <div class="flex items-center justify-between gap-3 mb-5 flex-wrap">
+                            <h3 class="text-[11px] font-bold uppercase tracking-[0.16em] text-teal-600">Visitor Reviews</h3>
+                            <button type="button" id="estModalFeedbackToggleBtn"
+                                    class="inline-flex items-center gap-1.5 bg-[#0e4f5c] hover:bg-[#0a3d47] text-white px-4 py-2 rounded-full text-xs font-bold transition shadow-sm focus:outline-none focus:ring-2 focus:ring-[#0e4f5c]/40">
+                                <i class="fas fa-pen text-[10px]"></i> Leave a Review
+                            </button>
+                        </div>
+
+                        {{-- Rating summary --}}
+                        <div id="estModalReviewSummary"></div>
+
+                        {{-- Inline feedback form --}}
+                        <div id="estModalFeedbackForm" class="hidden mb-5 rounded-2xl border border-[#0e4f5c]/20 bg-gradient-to-br from-teal-50/50 to-white p-5 space-y-4">
+                            <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fas fa-star text-amber-400 text-xs"></i> Write a Review
+                            </h4>
+                            <div>
+                                <label class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-2">Your Rating <span class="text-rose-400">*</span></label>
+                                <div class="flex items-center gap-1.5 text-3xl" id="estModalStarInput" role="radiogroup" aria-label="Star rating">
+                                    <span class="est-star-btn cursor-pointer text-slate-200 hover:text-amber-400 transition-colors select-none" data-val="1" role="radio" aria-label="1 star" tabindex="0">★</span>
+                                    <span class="est-star-btn cursor-pointer text-slate-200 hover:text-amber-400 transition-colors select-none" data-val="2" role="radio" aria-label="2 stars" tabindex="0">★</span>
+                                    <span class="est-star-btn cursor-pointer text-slate-200 hover:text-amber-400 transition-colors select-none" data-val="3" role="radio" aria-label="3 stars" tabindex="0">★</span>
+                                    <span class="est-star-btn cursor-pointer text-slate-200 hover:text-amber-400 transition-colors select-none" data-val="4" role="radio" aria-label="4 stars" tabindex="0">★</span>
+                                    <span class="est-star-btn cursor-pointer text-slate-200 hover:text-amber-400 transition-colors select-none" data-val="5" role="radio" aria-label="5 stars" tabindex="0">★</span>
+                                </div>
+                                <input type="hidden" id="estModalRatingInput" value="0">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Review Title <span class="text-slate-300 font-normal">(Optional)</span></label>
+                                <input type="text" id="estModalReviewTitle" placeholder="Summarize your experience…"
+                                       class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#0e4f5c]/30 focus:border-[#0e4f5c] transition-all">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Your Review <span class="text-rose-400">*</span></label>
+                                <textarea id="estModalReviewComment" rows="3" placeholder="Share your experience with other visitors…" maxlength="1000"
+                                          class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#0e4f5c]/30 focus:border-[#0e4f5c] transition-all resize-none"></textarea>
+                                <p class="text-xs text-slate-400 mt-1 text-right"><span id="estModalCharCount">0</span>/1000</p>
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Your Name <span class="text-slate-300 font-normal">(Optional)</span></label>
+                                <input type="text" id="estModalReviewerName" placeholder="e.g. Juan Dela Cruz"
+                                       class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#0e4f5c]/30 focus:border-[#0e4f5c] transition-all">
+                            </div>
+                            <p class="hidden items-center gap-1.5 text-xs font-semibold text-rose-500" id="estModalValidation">
+                                <i class="fas fa-circle-exclamation"></i>
+                                <span id="estModalValidationMsg"></span>
+                            </p>
+                            <div class="flex items-center gap-3 pt-1">
+                                <button type="button" id="estModalSubmitBtn"
+                                        class="flex-1 bg-[#0e4f5c] hover:bg-[#0a3d47] text-white px-5 py-2.5 rounded-xl text-sm font-bold transition shadow-sm flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#0e4f5c]/40">
+                                    <i class="fas fa-paper-plane text-xs"></i> Submit Review
+                                </button>
+                                <button type="button" id="estModalCancelBtn"
+                                        class="px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 hover:bg-slate-100 transition focus:outline-none focus:ring-2 focus:ring-slate-200">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+
+                        {{-- Review list --}}
+                        <div id="estModalReviewList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-16 scroll-mt-24">
             <div class="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6">
                 <div class="rounded-3xl bg-[#0e4f5c] text-white p-6 sm:p-8 relative overflow-hidden"><div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_32%)]"></div><div class="relative"><p class="text-xs font-bold uppercase tracking-[0.18em] text-teal-100/75">About</p><h2 class="mt-2 text-2xl font-extrabold">iTOUR for Davao Oriental tourism</h2><p class="mt-4 text-sm text-teal-50/85 leading-7">This public prototype presents a clean tourism portal concept for Davao Oriental. It highlights destinations, accredited services, visitor reviews, emergency guidance, and trip planning in a format that is easy to scan on mobile or desktop.</p></div></div>
@@ -517,7 +624,38 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+console.log('SCRIPT STARTED');
+
+// ─── Establishment detail data & per-establishment reviews ───────────────
+const establishmentDetails = {
+    1: { phone: '+63 82 555 0101', email: 'info@dahicanbeach.ph', website: 'dahicanbeach.gov.ph', hours: 'Daily · 6:00 AM – 9:00 PM' },
+    2: { phone: '+63 912 345 6789', email: 'aliwagwag@cateel.gov.ph', website: '', hours: 'Daily · 7:00 AM – 5:00 PM' },
+    3: { phone: '+63 977 123 4567', email: 'hamiguitan@sanisidro.gov.ph', website: 'hamiguitan.ph', hours: 'Daily · 6:00 AM – 4:00 PM (registration required)' },
+    4: { phone: '+63 82 388 1234', email: 'reservations@matimarinavhotel.com', website: 'matimarinavhotel.com', hours: 'Check-in 2 PM · Check-out 12 NN · 24 hr desk' },
+    5: { phone: '+63 917 234 5678', email: 'bookings@dorivans.com', website: '', hours: 'Daily · 5:00 AM – 10:00 PM' },
+    6: { phone: '', email: '', website: '', hours: 'Mon–Sat · 6:00 AM – 8:00 PM' },
+    7: { phone: '+63 918 765 4321', email: 'souvenirs@mati.ph', website: '', hours: 'Mon–Sun · 8:00 AM – 7:00 PM' },
+    8: { phone: '911 / 117', email: 'pta@davao-oriental.gov.ph', website: 'davao-oriental.gov.ph', hours: '24/7 · Always available' },
+    9: { phone: '+63 920 111 2222', email: 'guides@mati-tourism.ph', website: '', hours: 'By appointment · 7:00 AM – 5:00 PM' },
+};
+const establishmentReviewsMap = {
+    1: [{id:101,name:'K. Tanaka',rating:5,title:'Best beach in Davao Oriental!',text:'Beautiful white sand and crystal-clear waters. Surfing lessons available too. Highly recommended!',date:'2026-06-15'},{id:102,name:'M. Santos',rating:4,title:'Great spot for families',text:'Enjoyed our day trip here. The beach is clean and well-maintained. A bit crowded on weekends.',date:'2026-06-12'},{id:103,name:'J. Rivera',rating:5,title:'Stunning sunsets',text:'Came back for the third time. Sunsets here are absolutely magical. Will definitely visit again!',date:'2026-05-28'}],
+    2: [{id:201,name:'A. Santos',rating:5,title:'Nature at its finest',text:'The 130-tiered waterfall is breathtaking. One of the most beautiful places I have ever been!',date:'2026-06-25'},{id:202,name:'J. Cruz',rating:4,title:'Worth the trek',text:'The hike is a bit challenging but completely worth it. Bring plenty of water and proper footwear.',date:'2026-06-18'}],
+    3: [{id:301,name:'L. Gomez',rating:5,title:'UNESCO gem',text:'A UNESCO World Heritage site for good reason. The pygmy forest is unlike anything I have seen.',date:'2026-06-05'},{id:302,name:'R. Mendoza',rating:4,title:'Incredible biodiversity',text:'The trail guides are knowledgeable and helpful. Register early as slots are limited.',date:'2026-05-20'}],
+    4: [{id:401,name:'M. Rivera',rating:5,title:'Great city-center hotel',text:'Comfortable rooms, friendly staff, and convenient location. Perfect base for exploring Mati.',date:'2026-06-22'},{id:402,name:'P. Cruz',rating:4,title:'Good value',text:'Clean rooms and good breakfast included. Easy to get to tourist spots from here.',date:'2026-06-01'}],
+    5: [{id:501,name:'S. Lee',rating:5,title:'Reliable and punctual',text:'Used them for an island-hopping trip. Comfortable van, professional driver, arrived on time.',date:'2026-05-28'}],
+    6: [{id:601,name:'A. Reyes',rating:4,title:'Fresh and delicious',text:'Loved trying the local marang fruit and other sweets. Very affordable and authentic.',date:'2026-05-25'}],
+    7: [{id:701,name:'T. Garcia',rating:5,title:'Great souvenirs',text:'Beautiful hand-carved items. Perfect gifts to bring back home. Reasonable prices.',date:'2026-06-10'}],
+    8: [{id:801,name:'B. Lim',rating:5,title:'Very responsive',text:'They responded promptly when I needed assistance. Great service for tourists.',date:'2026-06-20'}],
+    9: [{id:901,name:'C. Flores',rating:5,title:'Knowledgeable and friendly',text:'Our guide was excellent, full of stories and historical facts about Davao Oriental. Highly recommend!',date:'2026-06-08'},{id:902,name:'E. Valdez',rating:4,title:'Professional service',text:'Well-organized tour with great attention to safety. Booked 2 days in advance with no issues.',date:'2026-05-30'}],
+};
+const userAddedEstReviews = {};
+let currentEstId = null, estDetailRating = 0, estFeedbackVisible = false;
+function getEstablishmentReviews(id) {
+    return [...(userAddedEstReviews[id] || []), ...(establishmentReviewsMap[id] || [])];
+}
+
+try {
     const exploreItems = [
         { id: 1, name: 'Dahican Beach', location: 'Mati City', category: 'destination', categoryLabel: 'Destination', tag: 'Beach', badges: ['Verified', 'Open Now'], opening: 'Updated Today', status: 'Featured', rating: '4.8', description: 'A popular coastal stop known for surfing, wide shoreline views, and easy access from Mati City.', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop' },
         { id: 2, name: 'Aliwagwag Falls', location: 'Cateel', category: 'destination', categoryLabel: 'Destination', tag: 'Waterfall', badges: ['Accredited', 'Updated Today'], opening: 'Open Now', status: 'Featured', rating: '4.9', description: 'A multi-tier waterfall destination with scenic trails and a strong nature-focused tourism identity.', image: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?q=80&w=1200&auto=format&fit=crop' },
@@ -548,9 +686,54 @@ document.addEventListener('DOMContentLoaded', () => {
     function scrollToSection(id) { const target = document.getElementById(id); if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' }); if (mobileNav) { mobileNav.classList.add('hidden'); navToggleIcon.className = 'fas fa-bars'; } state.section = id; updateNavState(); }
     function updateNavState() { document.querySelectorAll('.js-scroll-link').forEach((link) => { const active = link.dataset.scrollTarget === state.section; link.classList.toggle('text-[#0e4f5c]', active); link.classList.toggle('font-semibold', active); if (!active && link.closest('nav')) link.classList.add('text-slate-500'); }); }
 
+    function setCategory(category) {
+        state.category = category;
+        categorySelect.value = category;
+        const labelMap = {
+            all: 'All categories',
+            destination: 'Destinations',
+            hotel: 'Hotels',
+            transportation: 'Transportation',
+            'tour-guide': 'Tour Guides',
+            delicacy: 'Delicacies',
+            pasalubong: 'Pasalubong',
+            emergency: 'Emergency Services'
+        };
+        selectedCategoryLabel.textContent = labelMap[category] ?? 'All categories';
+        document.querySelectorAll('.explore-side').forEach((button) => {
+            const active = button.dataset.category === category;
+            button.classList.toggle('bg-[#e8f4f5]', active);
+            button.classList.toggle('border-[#9ccfd3]', active);
+            button.classList.toggle('text-[#0e4f5c]', active);
+            button.classList.toggle('font-semibold', active);
+            button.classList.toggle('bg-slate-50', !active);
+            button.classList.toggle('border-slate-200', !active);
+            button.classList.toggle('text-slate-600', !active);
+        });
+        applyFilters();
+    }
 
-    function setCategory(category) { state.category = category; categorySelect.value = category; const labelMap = { all: 'All categories', destination: 'Destinations', hotel: 'Hotels', transportation: 'Transportation', 'tour-guide': 'Tour Guides', delicacy: 'Delicacies', pasalubong: 'Pasalubong', emergency: 'Emergency Services' }; selectedCategoryLabel.textContent = labelMap[category] ?? 'All categories'; document.querySelectorAll('.explore-side').forEach((button) => { const active = button.dataset.category === category; button.classList.toggle('bg-[#e8f4f5]', active); button.classList.toggle('border-[#9ccfd3]', active); button.classList.toggle('text-[#0e4f5c]', active); button.classList.toggle('font-semibold', active); button.classList.toggle('bg-slate-50', !active); button.classList.toggle('border-slate-200', !active); button.classList.toggle('text-slate-600', !active); }); applyFilters(); }
-    function applyFilters() { const query = state.query.trim().toLowerCase(); const filtered = exploreItems.filter((item) => { const matchesCategory = state.category === 'all' || item.category === state.category; const matchesQuery = !query || [item.name, item.location, item.categoryLabel, item.tag, item.description, item.status, item.opening].some((value) => value.toLowerCase().includes(query)); return matchesCategory && matchesQuery; }); exploreGrid.innerHTML = filtered.map((item) => `<article id="explore-card-${item.id}" data-explore-card class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col scroll-mt-24"><div class="relative h-48 bg-slate-100"><div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(8, 30, 35, 0.12), rgba(8, 30, 35, 0.42)), url('${item.image}')"></div><div class="absolute top-4 left-4 flex flex-wrap gap-2"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.12em] uppercase text-white bg-[#0e4f5c]">${item.tag}</span>${item.badges.map((badge) => `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.12em] uppercase bg-white text-slate-700 shadow-sm">${badge}</span>`).join('')}</div><div class="absolute bottom-4 left-4 right-4"><p class="text-white text-sm font-medium">${item.location}</p><h3 class="text-white text-2xl font-extrabold tracking-tight mt-1">${item.name}</h3></div></div><div class="p-5 flex-1 flex flex-col"><div class="flex items-center justify-between gap-3"><span class="text-xs font-semibold uppercase tracking-[0.16em] text-teal-600">${item.categoryLabel}</span><span class="text-sm text-slate-500 inline-flex items-center gap-1"><i class="fas fa-star text-amber-400"></i> ${item.rating}</span></div><p class="mt-3 text-sm text-slate-500 leading-6">${item.description}</p><div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded-full bg-teal-50 text-teal-700 text-[11px] font-semibold">Updated Today</span><span class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-[11px] font-semibold">${item.opening}</span></div><div class="mt-5 pt-5 border-t border-slate-100 flex items-center justify-between gap-3"><button type="button" class="js-focus-card inline-flex items-center gap-2 text-sm font-semibold text-[#0e4f5c] hover:text-[#083a44]" data-card-id="${item.id}"><i class="fas fa-arrow-up-right-from-square"></i> Focus card</button><span class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">${item.status}</span></div></div></article>`).join(''); visibleExploreCount.textContent = String(filtered.length); emptyState.classList.toggle('hidden', filtered.length !== 0); searchEcho.classList.toggle('hidden', query.length === 0); searchEchoValue.textContent = state.query.trim(); }
+    const FALLBACK_IMG = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop';
+    function applyFilters() {
+        const query = state.query.trim().toLowerCase();
+        const filtered = exploreItems.filter((item) => {
+            const matchesCategory = state.category === 'all' || item.category === state.category;
+            const matchesQuery = !query || [item.name, item.location, item.categoryLabel, item.tag, item.description, item.status, item.opening].some((v) => v.toLowerCase().includes(query));
+            return matchesCategory && matchesQuery;
+        });
+        exploreGrid.innerHTML = filtered.map((item) => {
+            const imgSrc = item.image || FALLBACK_IMG;
+            const _reviews = getEstablishmentReviews(item.id);
+            const _avgR = _reviews.length > 0 ? (_reviews.reduce((s, r) => s + r.rating, 0) / _reviews.length).toFixed(1) : item.rating;
+            const _rCount = _reviews.length;
+            const _rBullet = _rCount > 0 ? ' • ' + _rCount + ' Review' + (_rCount !== 1 ? 's' : '') : '';
+            return `<article id="explore-card-${item.id}" data-explore-card class="group bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden flex flex-col scroll-mt-24"><div class="relative h-48 bg-slate-100 overflow-hidden"><img src="${imgSrc}" alt="${item.name}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK_IMG}';"><div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(8,30,35,0.10),rgba(8,30,35,0.48))"></div><div class="absolute top-4 left-4 flex flex-wrap gap-1.5"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.12em] uppercase text-white bg-[#0e4f5c]">${item.tag}</span>${item.badges.map((badge) => `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.12em] uppercase bg-white/90 backdrop-blur text-slate-700 shadow-sm">${badge}</span>`).join('')}</div><div class="absolute bottom-4 left-4 right-4"><p class="text-white/80 text-xs font-medium">${item.location}</p><h3 class="text-white text-xl font-extrabold tracking-tight mt-0.5 leading-snug">${item.name}</h3></div></div><div class="p-5 flex-1 flex flex-col"><div class="flex items-center justify-between gap-3"><span class="text-[11px] font-bold uppercase tracking-[0.16em] text-teal-600">${item.categoryLabel}</span><span class="est-card-rating text-xs font-semibold text-slate-500 inline-flex items-center gap-1"><i class="fas fa-star text-amber-400 text-[11px]"></i> ${_avgR}${_rBullet}</span></div><p class="mt-3 text-sm text-slate-500 leading-6 flex-1">${item.description}</p><div class="mt-4 flex flex-wrap gap-1.5"><span class="px-2.5 py-1 rounded-full bg-teal-50 text-teal-700 text-[10px] font-bold">Updated Today</span><span class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-500 text-[10px] font-bold">${item.opening}</span></div><div class="mt-4 pt-4 border-t border-slate-100 flex items-center gap-2"><button type="button" class="js-view-details flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-[#0e4f5c] hover:bg-[#0a3d47] text-white text-xs font-bold transition-all shadow-sm" data-est-id="${item.id}" aria-label="View details for ${item.name}"><i class="fas fa-circle-info text-[10px]"></i> View Details</button><button type="button" class="js-focus-card inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 hover:border-[#0e4f5c]/30 hover:text-[#0e4f5c] text-xs font-semibold text-slate-400 transition-all" data-card-id="${item.id}" title="Focus this card"><i class="fas fa-crosshairs text-[10px]"></i></button><span class="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400 ml-auto truncate">${item.status}</span></div></div></article>`;
+        }).join('');
+        visibleExploreCount.textContent = String(filtered.length);
+        emptyState.classList.toggle('hidden', filtered.length !== 0);
+        searchEcho.classList.toggle('hidden', query.length === 0);
+        searchEchoValue.textContent = state.query.trim();
+    }
 
     // ── Profile Dropdown ─────────────────────────────────────────
     const profileDropdownBtn  = document.getElementById('profileDropdownBtn');
@@ -564,29 +747,29 @@ document.addEventListener('DOMContentLoaded', () => {
     function openProfileDropdown() {
         if (dropdownOpen) return;
         dropdownOpen = true;
-        profileDropdownMenu.style.display = 'block';
-        requestAnimationFrame(() => {
-            profileDropdownMenu.style.opacity = '1';
-            profileDropdownMenu.style.transform = 'translateY(0)';
-        });
+        profileDropdownMenu.classList.remove('hidden');
         profileDropdownBtn.setAttribute('aria-expanded', 'true');
         if (profileChevron) profileChevron.style.transform = 'rotate(180deg)';
+        console.log('Dropdown opened');
     }
 
     function closeProfileDropdown() {
         if (!dropdownOpen) return;
         dropdownOpen = false;
-        profileDropdownMenu.style.opacity = '0';
-        profileDropdownMenu.style.transform = 'translateY(-6px)';
+        profileDropdownMenu.classList.add('hidden');
         profileDropdownBtn.setAttribute('aria-expanded', 'false');
         if (profileChevron) profileChevron.style.transform = 'rotate(0deg)';
-        setTimeout(() => { if (!dropdownOpen) profileDropdownMenu.style.display = 'none'; }, 200);
+        console.log('Dropdown closed');
     }
 
     if (profileDropdownBtn && profileDropdownMenu) {
+        console.log('Dropdown elements found, attaching listeners');
         profileDropdownBtn.addEventListener('click', (e) => {
+            console.log('Profile button clicked', e);
             e.stopPropagation();
+            console.log('dropdownOpen before:', dropdownOpen);
             dropdownOpen ? closeProfileDropdown() : openProfileDropdown();
+            console.log('dropdownOpen after:', dropdownOpen);
         });
         document.addEventListener('click', (e) => {
             if (dropdownOpen && profileDropdownWrapper && !profileDropdownWrapper.contains(e.target)) {
@@ -596,29 +779,279 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (logoutBtn && logoutForm) {
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
+        logoutBtn.addEventListener('click', () => {
             logoutBtn.disabled = true;
             logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin w-4 text-center"></i> Signing out…';
-            setTimeout(() => logoutForm.submit(), 400);
+            setTimeout(() => logoutForm.requestSubmit(), 400);
         });
     }
 
-    document.querySelectorAll('.js-scroll-link').forEach((link) => link.addEventListener('click', (event) => { event.preventDefault(); scrollToSection(link.dataset.scrollTarget); }));
-    navToggle.addEventListener('click', () => { mobileNav.classList.toggle('hidden'); navToggleIcon.className = mobileNav.classList.contains('hidden') ? 'fas fa-bars' : 'fas fa-xmark'; });
-    document.querySelectorAll('.explore-side').forEach((button) => button.addEventListener('click', () => { setCategory(button.dataset.category); scrollToSection('explore'); }));
-    categorySelect.addEventListener('change', () => setCategory(categorySelect.value));
-    searchInput.addEventListener('input', () => { state.query = searchInput.value; applyFilters(); });
-    resetExplore.addEventListener('click', () => { state.category = 'all'; state.query = ''; searchInput.value = ''; categorySelect.value = 'all'; setCategory('all'); });
-    clearEmptyFilters.addEventListener('click', () => resetExplore.click());
-    document.addEventListener('click', (event) => { const focusButton = event.target.closest('.js-focus-card'); if (focusButton) { const card = document.getElementById(`explore-card-${focusButton.dataset.cardId}`); if (card) { document.querySelectorAll('[data-explore-card]').forEach((el) => el.classList.remove('ring-2', 'ring-[#0e4f5c]', 'ring-offset-2', 'ring-offset-[#f0f5f7]')); card.classList.add('ring-2', 'ring-[#0e4f5c]', 'ring-offset-2', 'ring-offset-[#f0f5f7]'); card.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
+    document.querySelectorAll('.js-scroll-link').forEach((link) => link?.addEventListener('click', (event) => { event.preventDefault(); scrollToSection(link.dataset.scrollTarget); }));
+    navToggle?.addEventListener('click', () => { mobileNav.classList.toggle('hidden'); navToggleIcon.className = mobileNav.classList.contains('hidden') ? 'fas fa-bars' : 'fas fa-xmark'; });
+    document.querySelectorAll('.explore-side').forEach((button) => button?.addEventListener('click', () => { setCategory(button.dataset.category); scrollToSection('explore'); }));
+    categorySelect?.addEventListener('change', () => setCategory(categorySelect.value));
+    searchInput?.addEventListener('input', () => { state.query = searchInput.value; applyFilters(); });
+    resetExplore?.addEventListener('click', () => { state.category = 'all'; state.query = ''; searchInput.value = ''; categorySelect.value = 'all'; setCategory('all'); });
+    clearEmptyFilters?.addEventListener('click', () => resetExplore.click());
+    document.addEventListener('click', (event) => { const focusButton = event.target.closest('.js-focus-card'); if (focusButton) { const card = document.getElementById(`explore-card-${focusButton.dataset.cardId}`); if (card) { document.querySelectorAll('[data-explore-card]').forEach((el) => el.classList.remove('ring-2', 'ring-[#0e4f5c]', 'ring-offset-2', 'ring-offset-[#f0f5f7]')); card.classList.add('ring-2', 'ring-[#0e4f5c]', 'ring-offset-2', 'ring-offset-[#f0f5f7]'); card.scrollIntoView({ behavior: 'smooth', block: 'center' }); } } });
     document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { mobileNav.classList.add('hidden'); navToggleIcon.className = 'fas fa-bars'; closeProfileDropdown(); } });
     const sections = ['home', 'explore', 'plan', 'reviews', 'about'].map((id) => document.getElementById(id)).filter(Boolean);
     const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { state.section = entry.target.id; updateNavState(); } }); }, { rootMargin: '-35% 0px -45% 0px', threshold: 0.15 });
     sections.forEach((section) => observer.observe(section));
     setCategory('all'); updateNavState();
     initFeedback();
-});
+    initEstablishmentModal();
+    console.log('iTOUR init complete');
+} catch (e) { console.error('iTOUR init error:', e); }
+
+// ═══ ESTABLISHMENT DETAIL MODAL ═══
+
+function openEstablishmentDetail(id) {
+    const item = (typeof exploreItems !== 'undefined' ? exploreItems : []).find(i => i.id === id);
+    if (!item) return;
+    currentEstId = id; estDetailRating = 0; estFeedbackVisible = false;
+    const fallback = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop';
+    const modal  = document.getElementById('establishmentModal');
+    const panel  = document.getElementById('establishmentModalPanel');
+
+    document.getElementById('estModalImage').src = item.image || fallback;
+    document.getElementById('estModalImage').alt = item.name;
+    document.getElementById('estModalTitle').textContent    = item.name;
+    document.getElementById('estModalCategory').textContent = item.categoryLabel;
+    document.getElementById('estModalLocation').textContent = '📍 ' + item.location;
+
+    document.getElementById('estModalBadges').innerHTML = item.badges.map(b =>
+        `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.12em] uppercase bg-white/90 backdrop-blur text-slate-700 shadow-sm">${b}</span>`
+    ).join('');
+
+    const estRevs  = getEstablishmentReviews(id);
+    const estCount = estRevs.length;
+    const estAvg   = estCount > 0 ? (estRevs.reduce((s, r) => s + r.rating, 0) / estCount).toFixed(1) : item.rating;
+    document.getElementById('estModalRatingBadge').innerHTML =
+        `<i class="fas fa-star text-amber-300 text-sm"></i><span class="font-extrabold text-white text-sm ml-1">${estAvg}</span><span class="text-white/70 text-xs font-medium ml-2">· ${estCount} review${estCount !== 1 ? 's' : ''}</span>`;
+
+    document.getElementById('estModalDescription').textContent = item.description;
+
+    const extra = establishmentDetails[id] || {};
+    const chips = [
+        extra.hours   ? `<span class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-medium"><i class="fas fa-clock text-teal-600 shrink-0 text-[11px]"></i>${extra.hours}</span>` : '',
+        extra.phone   ? `<span class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-medium"><i class="fas fa-phone text-teal-600 shrink-0 text-[11px]"></i>${extra.phone}</span>` : '',
+        extra.email   ? `<span class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-medium"><i class="fas fa-envelope text-teal-600 shrink-0 text-[11px]"></i>${extra.email}</span>` : '',
+        extra.website ? `<span class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-medium"><i class="fas fa-globe text-teal-600 shrink-0 text-[11px]"></i>${extra.website}</span>` : '',
+    ].join('');
+    document.getElementById('estModalDetails').innerHTML = chips;
+
+    resetEstFeedbackForm();
+    document.getElementById('estModalFeedbackForm').classList.add('hidden');
+    estFeedbackVisible = false;
+    document.getElementById('estModalFeedbackToggleBtn').innerHTML = '<i class="fas fa-pen text-[10px]"></i> Leave a Review';
+
+    renderEstModalReviews();
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+        panel.style.transform = 'scale(1)';
+        panel.style.opacity   = '1';
+    }));
+    setTimeout(() => { const cl = document.getElementById('estModalClose'); if (cl) cl.focus(); }, 260);
+}
+
+function closeEstablishmentDetail() {
+    const modal = document.getElementById('establishmentModal');
+    const panel = document.getElementById('establishmentModalPanel');
+    panel.style.transform = 'scale(0.96)';
+    panel.style.opacity   = '0';
+    setTimeout(() => {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+        currentEstId = null;
+    }, 230);
+}
+
+function renderEstModalReviews() {
+    if (currentEstId === null) return;
+    const reviews   = getEstablishmentReviews(currentEstId);
+    const summaryEl = document.getElementById('estModalReviewSummary');
+    const listEl    = document.getElementById('estModalReviewList');
+
+    if (reviews.length === 0) {
+        summaryEl.innerHTML = '';
+        listEl.innerHTML = `<div class="text-center py-10">
+            <div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-comment-dots text-slate-300 text-xl"></i>
+            </div>
+            <p class="text-sm font-semibold text-slate-500">No reviews yet</p>
+            <p class="text-xs text-slate-400 mt-1">Be the first to share your experience!</p>
+        </div>`;
+        return;
+    }
+
+    const total = reviews.length;
+    const avg   = (reviews.reduce((s, r) => s + r.rating, 0) / total).toFixed(1);
+    const dist  = {5:0, 4:0, 3:0, 2:0, 1:0};
+    reviews.forEach(r => { if (dist[r.rating] !== undefined) dist[r.rating]++; });
+
+    let barsHtml = '';
+    for (let i = 5; i >= 1; i--) {
+        const pct = Math.round((dist[i] / total) * 100);
+        barsHtml += `<div class="flex items-center gap-2 text-xs"><span class="font-semibold text-slate-500 w-3">${i}</span><i class="fas fa-star text-amber-400 text-[10px]"></i><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-amber-400 rounded-full transition-all duration-700" style="width:${pct}%"></div></div><span class="text-slate-400 w-5 text-right font-medium">${dist[i]}</span></div>`;
+    }
+    const roundedAvg = Math.round(parseFloat(avg));
+    const starsHtml  = Array.from({length:5}, (_, i) => `<i class="fas fa-star ${i < roundedAvg ? 'text-amber-400' : 'text-slate-200'} text-sm"></i>`).join('');
+    summaryEl.innerHTML = `<div class="flex gap-6 sm:gap-10 items-start p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 mb-5">
+        <div class="text-center shrink-0">
+            <div class="text-4xl font-extrabold text-slate-900">${avg}</div>
+            <div class="flex gap-0.5 justify-center mt-1">${starsHtml}</div>
+            <p class="text-xs text-slate-400 font-medium mt-1">${total} review${total !== 1 ? 's' : ''}</p>
+        </div>
+        <div class="flex-1 space-y-1.5 max-w-xs pt-1">${barsHtml}</div>
+    </div>`;
+
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const fmtDate  = d => { const dt = new Date(d); return months[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear(); };
+    const getStars = r => Array.from({length:5}, (_, i) => `<i class="fas fa-star text-xs ${i < r ? 'text-amber-400' : 'text-slate-200'}"></i>`).join('');
+    const initials = name => (name || 'A')[0].toUpperCase();
+
+    listEl.innerHTML = '<div class="space-y-3">' + reviews.map(r => `
+        <article class="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-start justify-between gap-3 mb-2">
+                <div>
+                    <div class="flex items-center gap-0.5 mb-1">${getStars(r.rating)}</div>
+                    ${r.title ? `<h4 class="text-sm font-bold text-slate-900">${r.title}</h4>` : ''}
+                </div>
+                <span class="text-[10px] font-semibold text-slate-400 whitespace-nowrap shrink-0">${fmtDate(r.date)}</span>
+            </div>
+            <p class="text-sm text-slate-600 leading-6">${r.text}</p>
+            <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center text-white text-[10px] font-bold shrink-0">${initials(r.name)}</div>
+                <p class="text-xs font-bold text-slate-700">${r.name || 'Anonymous'}</p>
+            </div>
+        </article>`).join('') + '</div>';
+}
+
+function toggleEstFeedbackForm() {
+    estFeedbackVisible = !estFeedbackVisible;
+    const formEl = document.getElementById('estModalFeedbackForm');
+    const btnEl  = document.getElementById('estModalFeedbackToggleBtn');
+    if (estFeedbackVisible) {
+        formEl.classList.remove('hidden');
+        btnEl.innerHTML = '<i class="fas fa-times text-[10px]"></i> Cancel';
+        setTimeout(() => formEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
+    } else {
+        formEl.classList.add('hidden');
+        btnEl.innerHTML = '<i class="fas fa-pen text-[10px]"></i> Leave a Review';
+        resetEstFeedbackForm();
+    }
+}
+
+function resetEstFeedbackForm() {
+    estDetailRating = 0;
+    ['estModalRatingInput','estModalReviewTitle','estModalReviewComment','estModalReviewerName'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = (id === 'estModalRatingInput') ? '0' : '';
+    });
+    const cc = document.getElementById('estModalCharCount');
+    if (cc) cc.textContent = '0';
+    const vl = document.getElementById('estModalValidation');
+    if (vl) vl.classList.add('hidden');
+    updateEstStarDisplay(0);
+}
+
+function updateEstStarDisplay(rating) {
+    document.querySelectorAll('.est-star-btn').forEach(star => {
+        const val = parseInt(star.dataset.val);
+        star.classList.toggle('text-amber-400', val <= rating);
+        star.classList.toggle('text-slate-200',  val > rating);
+    });
+}
+
+function submitEstReview() {
+    const rating  = parseInt(document.getElementById('estModalRatingInput').value);
+    const title   = document.getElementById('estModalReviewTitle').value.trim();
+    const comment = document.getElementById('estModalReviewComment').value.trim();
+    const name    = document.getElementById('estModalReviewerName').value.trim();
+    const vEl     = document.getElementById('estModalValidation');
+    const mEl     = document.getElementById('estModalValidationMsg');
+
+    if (!rating)  { vEl.classList.remove('hidden'); mEl.textContent = 'Please select a star rating.'; return; }
+    if (!comment) { vEl.classList.remove('hidden'); mEl.textContent = 'Please write your review before submitting.'; return; }
+    vEl.classList.add('hidden');
+
+    if (!userAddedEstReviews[currentEstId]) userAddedEstReviews[currentEstId] = [];
+    userAddedEstReviews[currentEstId].unshift({
+        id: Date.now(), name: name || 'Anonymous', rating,
+        title: title || null, text: comment,
+        date: new Date().toISOString().split('T')[0],
+    });
+
+    // Refresh card rating badge in the directory grid
+    const cardBadge = document.querySelector(`#explore-card-${currentEstId} .est-card-rating`);
+    if (cardBadge) {
+        const revs   = getEstablishmentReviews(currentEstId);
+        const newAvg = (revs.reduce((s, r) => s + r.rating, 0) / revs.length).toFixed(1);
+        cardBadge.innerHTML = `<i class="fas fa-star text-amber-400 text-[11px]"></i> ${newAvg} • ${revs.length} Review${revs.length !== 1 ? 's' : ''}`;
+    }
+
+    // Update hero rating badge
+    const revs2   = getEstablishmentReviews(currentEstId);
+    const newAvg2 = (revs2.reduce((s, r) => s + r.rating, 0) / revs2.length).toFixed(1);
+    document.getElementById('estModalRatingBadge').innerHTML =
+        `<i class="fas fa-star text-amber-300 text-sm"></i><span class="font-extrabold text-white text-sm ml-1">${newAvg2}</span><span class="text-white/70 text-xs font-medium ml-2">· ${revs2.length} review${revs2.length !== 1 ? 's' : ''}</span>`;
+
+    resetEstFeedbackForm();
+    document.getElementById('estModalFeedbackForm').classList.add('hidden');
+    document.getElementById('estModalFeedbackToggleBtn').innerHTML = '<i class="fas fa-pen text-[10px]"></i> Leave a Review';
+    estFeedbackVisible = false;
+    renderEstModalReviews();
+    setTimeout(() => { const se = document.getElementById('estModalReviewSummary'); if (se) se.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 60);
+}
+
+function initEstablishmentModal() {
+    document.getElementById('estModalClose').addEventListener('click', closeEstablishmentDetail);
+    document.getElementById('establishmentModal').addEventListener('click', function(e) {
+        if (e.target === this) closeEstablishmentDetail();
+    });
+    document.getElementById('estModalFeedbackToggleBtn').addEventListener('click', toggleEstFeedbackForm);
+    document.getElementById('estModalCancelBtn').addEventListener('click', () => { if (estFeedbackVisible) toggleEstFeedbackForm(); });
+    document.getElementById('estModalSubmitBtn').addEventListener('click', submitEstReview);
+
+    document.querySelectorAll('.est-star-btn').forEach(star => {
+        star.addEventListener('click', () => {
+            estDetailRating = parseInt(star.dataset.val);
+            document.getElementById('estModalRatingInput').value = estDetailRating;
+            updateEstStarDisplay(estDetailRating);
+        });
+        star.addEventListener('mouseenter', () => {
+            const val = parseInt(star.dataset.val);
+            document.querySelectorAll('.est-star-btn').forEach(s => {
+                s.classList.toggle('text-amber-400', parseInt(s.dataset.val) <= val);
+                s.classList.toggle('text-slate-200',  parseInt(s.dataset.val) > val);
+            });
+        });
+        star.addEventListener('mouseleave', () => updateEstStarDisplay(estDetailRating));
+        star.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); star.click(); }
+        });
+    });
+
+    document.getElementById('estModalReviewComment').addEventListener('input', function() {
+        document.getElementById('estModalCharCount').textContent = this.value.length;
+    });
+
+    // Delegated click handler for all "View Details" buttons in the directory grid
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.js-view-details');
+        if (btn) { const id = parseInt(btn.dataset.estId); if (id) openEstablishmentDetail(id); }
+    });
+
+    // Escape key closes detail modal (without conflicting with main modal handler)
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && currentEstId !== null) closeEstablishmentDetail();
+    });
+}
 
 // ═══ TRIP PLANNER ═══
 
@@ -928,6 +1361,7 @@ function buildItinerary() {
     renderItinerary(result);
 }
 
+try {
 // Preference button toggling
 document.querySelectorAll('.pref-btn').forEach(btn => {
     btn.addEventListener('click', function () {
@@ -953,6 +1387,7 @@ document.querySelectorAll('.pref-btn').forEach(btn => {
 
 // Select defaults on load
 selectDefaultPreferences();
+} catch (e) { console.error('iTOUR pref init error:', e); }
 
 // ═══ PUBLIC TOURIST FEEDBACK SYSTEM ═══
 
@@ -1120,14 +1555,14 @@ function changeSort(value) {
 function openFeedbackForm() {
     const modal = document.getElementById('feedbackModal');
     modal.classList.remove('hidden');
-    modal.style.display = 'flex';
+    modal.classList.add('flex');
     document.body.style.overflow = 'hidden';
 }
 
 function closeFeedbackForm() {
     const modal = document.getElementById('feedbackModal');
+    modal.classList.remove('flex');
     modal.classList.add('hidden');
-    modal.style.display = 'none';
     document.body.style.overflow = '';
 }
 
@@ -1211,5 +1646,6 @@ function initFeedback() {
     });
 }
 
+console.log('SCRIPT ENDED');
 </script>
 @endsection
