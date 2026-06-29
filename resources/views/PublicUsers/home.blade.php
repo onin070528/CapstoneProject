@@ -351,45 +351,213 @@
         </section>
 
         <section id="plan" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 scroll-mt-24">
-            <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-6 items-start">
-                <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8">
-                    <div class="flex items-end justify-between gap-4 flex-wrap mb-6">
-                        <div><p class="text-xs font-bold uppercase tracking-[0.18em] text-teal-600">Plan Your Trip</p><h2 class="mt-2 text-2xl font-extrabold text-slate-900">Suggested itinerary-style planning</h2></div>
-                        <div class="flex flex-wrap gap-2">
-                            <button type="button" class="plan-tab px-3 py-2 rounded-full text-xs font-semibold border bg-[#0e4f5c] text-white border-[#0e4f5c]" data-tab="1-day">1 Day</button>
-                            <button type="button" class="plan-tab px-3 py-2 rounded-full text-xs font-semibold border bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100" data-tab="2-day">2 Day</button>
-                            <button type="button" class="plan-tab px-3 py-2 rounded-full text-xs font-semibold border bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100" data-tab="family">Family</button>
+            <div class="mb-6">
+                <p class="text-xs font-bold uppercase tracking-[0.18em] text-teal-600">Plan Your Trip</p>
+                <h2 class="mt-2 text-2xl font-extrabold text-slate-900">Build your personalized Davao Oriental itinerary</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-6 items-start">
+                {{-- Left: Preferences + Itinerary --}}
+                <div class="space-y-6">
+                    {{-- Trip Preferences Card --}}
+                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8" id="preferences-card">
+                        <h3 class="text-sm font-bold text-slate-900 mb-5">Tell us about your trip</h3>
+
+                        <div class="space-y-5">
+                            {{-- Duration --}}
+                            <div>
+                                <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-2">Travel Duration</label>
+                                <div class="flex flex-wrap gap-2" id="pref-duration">
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="day-tour">Day Tour</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="2-days">2 Days / 1 Night</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="3-days">3 Days / 2 Nights</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="4-days">4 Days / 3 Nights</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="5-plus">5+ Days</button>
+                                </div>
+                            </div>
+
+                            {{-- Travel Type --}}
+                            <div>
+                                <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-2">Travel Type</label>
+                                <div class="flex flex-wrap gap-2" id="pref-type">
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="solo">Solo</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="couple">Couple</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="family">Family</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="group">Friends / Group</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="educational">Educational Tour</button>
+                                </div>
+                            </div>
+
+                            {{-- Interests --}}
+                            <div>
+                                <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-2">Interests</label>
+                                <div class="flex flex-wrap gap-2" id="pref-interests">
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="beaches">Beaches</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="islands">Islands</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="nature">Nature & Waterfalls</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="mountains">Mountains & Hiking</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="culture">Culture & Heritage</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="food">Food & Local Cuisine</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="adventure">Adventure Activities</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="relaxation">Relaxation & Leisure</button>
+                                </div>
+                            </div>
+
+                            {{-- Budget --}}
+                            <div>
+                                <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-2">Budget Range</label>
+                                <div class="flex flex-wrap gap-2" id="pref-budget">
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="budget">Budget-Friendly</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="mid">Mid-Range</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="premium">Premium</button>
+                                </div>
+                            </div>
+
+                            {{-- Transportation --}}
+                            <div>
+                                <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-2">Transportation</label>
+                                <div class="flex flex-wrap gap-2" id="pref-transport">
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="private">Private Vehicle</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="public">Public Transportation</button>
+                                    <button type="button" class="pref-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-[#0e4f5c] hover:text-[#0e4f5c] transition" data-value="either">Either</button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 pt-2">
+                                <button type="button" onclick="buildItinerary()"
+                                    class="bg-[#0e4f5c] hover:bg-[#0a3d47] text-white px-6 py-2.5 rounded-xl text-sm font-bold transition shadow-sm flex items-center gap-2">
+                                    <i class="fas fa-route"></i> Build My Itinerary
+                                </button>
+                                <button type="button" onclick="resetPreferences()"
+                                    class="border border-slate-200 hover:bg-slate-50 text-slate-600 px-5 py-2.5 rounded-xl text-sm font-semibold transition">
+                                    Reset
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 gap-4" id="planSteps"></div>
+
+                    {{-- Generated Itinerary Card --}}
+                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8" id="itinerary-card">
+                        <div id="itinerary-empty">
+                            <div class="text-center py-10">
+                                <div class="w-16 h-16 rounded-full bg-teal-50 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-map-location-dot text-teal-400 text-xl"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-900">Start planning your trip</h3>
+                                <p class="text-sm text-slate-500 mt-2 max-w-md mx-auto">Tell us your travel preferences and we'll help you build a personalized Davao Oriental itinerary.</p>
+                            </div>
+                        </div>
+                        <div id="itinerary-generated" class="hidden"></div>
+                    </div>
                 </div>
-                <div class="rounded-3xl bg-[#0e4f5c] text-white p-6 sm:p-7 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.12),transparent_35%)]"></div>
-                    <div class="relative">
-                        <p class="text-xs font-bold uppercase tracking-[0.18em] text-teal-100/75">Trip suggestions</p>
-                        <h3 class="mt-2 text-xl font-extrabold">Easy, scanable planning for first-time visitors</h3>
-                        <ul class="mt-5 space-y-3 text-sm text-teal-50/85">
-                            <li class="flex gap-3"><i class="fas fa-circle-check mt-0.5 text-teal-200"></i><span>Start with a beach stop, then move to local food and sunset viewpoints.</span></li>
-                            <li class="flex gap-3"><i class="fas fa-circle-check mt-0.5 text-teal-200"></i><span>Use the Explore filters to compare hotels, guides, transportation, and emergency contacts.</span></li>
-                            <li class="flex gap-3"><i class="fas fa-circle-check mt-0.5 text-teal-200"></i><span>Keep the itinerary flexible; this prototype only demonstrates front-end planning behavior.</span></li>
-                        </ul>
-                        <button type="button" id="openTripModalBtn2" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-white text-[#0e4f5c] px-4 py-3 text-sm font-semibold hover:bg-slate-50 transition"><i class="fas fa-calendar-days"></i> Open itinerary demo</button>
+
+                {{-- Right: Trip Info Sidebar --}}
+                <div class="space-y-4" id="trip-info-sidebar">
+                    <div class="rounded-3xl bg-[#0e4f5c] text-white p-6 sm:p-7 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.12),transparent_35%)]"></div>
+                        <div class="relative">
+                            <p class="text-xs font-bold uppercase tracking-[0.18em] text-teal-100/75">Why plan with iTOUR?</p>
+                            <ul class="mt-5 space-y-3 text-sm text-teal-50/85">
+                                <li class="flex gap-3"><i class="fas fa-circle-check mt-0.5 text-teal-200"></i><span>Personalized recommendations based on your interests and budget.</span></li>
+                                <li class="flex gap-3"><i class="fas fa-circle-check mt-0.5 text-teal-200"></i><span>Curated attractions from accredited destinations across Davao Oriental.</span></li>
+                                <li class="flex gap-3"><i class="fas fa-circle-check mt-0.5 text-teal-200"></i><span>Day-by-day timeline with morning, afternoon, and evening activities.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="trip-stats-card" class="hidden rounded-3xl bg-white border border-slate-200 shadow-sm p-6">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Trip Overview</h4>
+                        <div class="space-y-3 text-sm" id="trip-stats-content"></div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="reviews" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 scroll-mt-24">
-            <div class="flex items-end justify-between gap-4 flex-wrap mb-6">
-                <div><p class="text-xs font-bold uppercase tracking-[0.18em] text-teal-600">Visitor Reviews</p><h2 class="mt-2 text-2xl font-extrabold text-slate-900">Public feedback snapshots</h2></div>
-                <div class="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 bg-white border border-slate-200 px-3 py-2 rounded-full shadow-sm"><i class="fas fa-comment-dots text-teal-600"></i> Scrolling and section focus only</div>
+            <div class="flex items-end justify-between gap-4 flex-wrap mb-8">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.18em] text-teal-600">Visitor Reviews</p>
+                    <h2 class="mt-2 text-2xl font-extrabold text-slate-900">What visitors are saying</h2>
+                </div>
+                <button type="button" onclick="openFeedbackForm()"
+                    class="inline-flex items-center gap-2 bg-[#0e4f5c] hover:bg-[#0a3d47] text-white px-5 py-2.5 rounded-full text-sm font-bold transition shadow-sm">
+                    <i class="fas fa-pen"></i> Submit Feedback
+                </button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <article class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6"><div class="flex items-center gap-1 text-amber-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="mt-4 text-sm text-slate-600 leading-6">The layout is easy to scan, and the destination cards are grouped clearly by category and travel purpose.</p><div class="mt-5 pt-5 border-t border-slate-100 flex items-center justify-between gap-4"><div><h3 class="font-bold text-slate-900">A. Santos</h3><p class="text-xs text-slate-400">Visitor from Davao City</p></div><span class="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.12em] uppercase bg-teal-50 text-teal-700">Verified</span></div></article>
-                <article class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6"><div class="flex items-center gap-1 text-amber-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="mt-4 text-sm text-slate-600 leading-6">The planning section makes the itinerary flow simple to follow without adding unnecessary steps.</p><div class="mt-5 pt-5 border-t border-slate-100 flex items-center justify-between gap-4"><div><h3 class="font-bold text-slate-900">M. Rivera</h3><p class="text-xs text-slate-400">Weekend traveler</p></div><span class="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.12em] uppercase bg-teal-50 text-teal-700">Updated Today</span></div></article>
-                <article class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6"><div class="flex items-center gap-1 text-amber-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="mt-4 text-sm text-slate-600 leading-6">The Explore filters and badges are enough for a prototype and still keep the interface clean.</p><div class="mt-5 pt-5 border-t border-slate-100 flex items-center justify-between gap-4"><div><h3 class="font-bold text-slate-900">J. Cruz</h3><p class="text-xs text-slate-400">Local guide user</p></div><span class="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.12em] uppercase bg-teal-50 text-teal-700">Accredited</span></div></article>
+
+            <div id="feedback-container"></div>
+
+            <div id="feedback-empty" class="hidden text-center py-16">
+                <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-comment-dots text-slate-300 text-xl"></i>
+                </div>
+                <p class="text-slate-500 font-semibold">No reviews have been submitted yet.</p>
+                <p class="text-sm text-slate-400 mt-1">Be the first to share your experience.</p>
+                <button type="button" onclick="openFeedbackForm()"
+                    class="mt-4 inline-flex items-center gap-2 bg-[#0e4f5c] hover:bg-[#0a3d47] text-white px-5 py-2.5 rounded-full text-sm font-bold transition shadow-sm">
+                    <i class="fas fa-pen"></i> Write a Review
+                </button>
             </div>
         </section>
+
+        {{-- Feedback Form Modal --}}
+        <div id="feedbackModal" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8 bg-slate-950/55" style="display:none;">
+            <div class="w-full max-w-lg rounded-3xl bg-white shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] overflow-y-auto">
+                <div class="flex items-center justify-between gap-4 px-6 py-4 border-b border-slate-100 sticky top-0 bg-white z-10">
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-[0.18em] text-teal-600">Share your experience</p>
+                        <h3 class="mt-1 text-lg font-bold text-slate-900">Submit Feedback</h3>
+                    </div>
+                    <button type="button" onclick="closeFeedbackForm()" class="w-10 h-10 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition flex items-center justify-center">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="p-6 space-y-5">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1.5">Your Name <span class="text-slate-300 font-normal">(Optional)</span></label>
+                        <input type="text" id="feedback-name" placeholder="e.g. Juan Dela Cruz"
+                            class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#0e4f5c]/30 focus:border-[#0e4f5c] transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1.5">Establishment <span class="text-rose-400">*</span></label>
+                        <select id="feedback-establishment"
+                            class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#0e4f5c]/30 focus:border-[#0e4f5c] transition-all">
+                            <option value="" disabled selected>Select an establishment</option>
+                            <option value="Blue Bless Resort">Blue Bless Resort</option>
+                            <option value="Botona Beach Resort">Botona Beach Resort</option>
+                            <option value="Mati Marina Hotel">Mati Marina Hotel</option>
+                            <option value="Aliwagwag Eco Lodge">Aliwagwag Eco Lodge</option>
+                            <option value="Pujada Bay Diving Center">Pujada Bay Diving Center</option>
+                            <option value="Cateel Heritage Cafe">Cateel Heritage Cafe</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1.5">Rating <span class="text-rose-400">*</span></label>
+                        <div class="flex items-center gap-1.5 text-2xl" id="star-rating-input">
+                            <span class="star-btn cursor-pointer text-slate-200 hover:text-amber-400 transition-colors" data-value="1">★</span>
+                            <span class="star-btn cursor-pointer text-slate-200 hover:text-amber-400 transition-colors" data-value="2">★</span>
+                            <span class="star-btn cursor-pointer text-slate-200 hover:text-amber-400 transition-colors" data-value="3">★</span>
+                            <span class="star-btn cursor-pointer text-slate-200 hover:text-amber-400 transition-colors" data-value="4">★</span>
+                            <span class="star-btn cursor-pointer text-slate-200 hover:text-amber-400 transition-colors" data-value="5">★</span>
+                        </div>
+                        <input type="hidden" id="feedback-rating" value="0">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1.5">Your Review <span class="text-rose-400">*</span></label>
+                        <textarea id="feedback-text" rows="4" placeholder="Share your experience..." maxlength="1000"
+                            class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#0e4f5c]/30 focus:border-[#0e4f5c] transition-all resize-none"></textarea>
+                        <p class="text-xs text-slate-400 mt-1 text-right"><span id="feedback-chars">0</span>/1000</p>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-5">
+                        <i class="fas fa-circle-info text-teal-600 mr-1"></i>
+                        Your feedback helps tourism establishments and the Provincial Tourism Office improve services and experiences for all visitors.
+                    </p>
+                    <button type="button" onclick="submitFeedback()"
+                        class="w-full bg-[#0e4f5c] hover:bg-[#0a3d47] text-white px-5 py-3 rounded-xl text-sm font-bold transition shadow-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-paper-plane"></i> Submit Review
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-16 scroll-mt-24">
             <div class="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6">
@@ -399,19 +567,6 @@
         </section>
     </main>
 
-    <div id="tripModal" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-6 bg-slate-950/55">
-        <div class="w-full max-w-2xl rounded-3xl bg-white shadow-2xl border border-slate-200 overflow-hidden">
-            <div class="flex items-center justify-between gap-4 px-6 py-4 border-b border-slate-100">
-                <div><p class="text-xs font-bold uppercase tracking-[0.18em] text-teal-600">Itinerary demo</p><h3 class="mt-1 text-lg font-bold text-slate-900">Suggested tourism flow</h3></div>
-                <button type="button" id="closeTripModal" class="w-10 h-10 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition"><i class="fas fa-xmark"></i></button>
-            </div>
-            <div class="p-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4"><p class="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Morning</p><p class="mt-2 font-semibold text-slate-900">Beach or scenic stop</p><p class="mt-1 text-sm text-slate-500">Begin with a destination card in Explore.</p></div>
-                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4"><p class="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Midday</p><p class="mt-2 font-semibold text-slate-900">Food and services</p><p class="mt-1 text-sm text-slate-500">Compare delicacies, pasalubong, or transport.</p></div>
-                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4"><p class="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Evening</p><p class="mt-2 font-semibold text-slate-900">Review and plan</p><p class="mt-1 text-sm text-slate-500">Use reviews and trip suggestions to finalize a demo route.</p></div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script>
@@ -428,25 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 9, name: 'Licensed Tour Guide Desk', location: 'Mati City', category: 'tour-guide', categoryLabel: 'Tour Guide', tag: 'Guide', badges: ['Verified', 'Accredited'], opening: 'Open Now', status: 'Book demo', rating: '4.8', description: 'Sample guide profile for prototype filtering, search, and section browsing.', image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop' }
     ];
 
-    const planSteps = {
-        '1-day': [
-            { time: '08:00', title: 'Arrive and orient', type: 'Check-in', description: 'Start in Mati City, review the Explore directory, and identify a beach or city stop.' },
-            { time: '11:00', title: 'Scenic visit', type: 'Outdoor', description: 'Use a featured attraction card for a beach, waterfall, or mountain destination.' },
-            { time: '15:00', title: 'Food stop', type: 'Local taste', description: 'Add a delicacy or pasalubong stop to keep the itinerary simple and factual.' }
-        ],
-        '2-day': [
-            { time: 'Day 1', title: 'Mati City and coast', type: 'Route', description: 'Use the first day for a beach or city itinerary and a hotel check-in.' },
-            { time: 'Day 2', title: 'Nature and culture', type: 'Route', description: 'Add a waterfall or mountain stop, then close with food and souvenir browsing.' },
-            { time: 'Night', title: 'Review and adjust', type: 'Planning', description: 'Use the visitor reviews section and Explore filters to refine the demo route.' }
-        ],
-        family: [
-            { time: 'Morning', title: 'Easy-access destinations', type: 'Family', description: 'Keep the route short and choose cards that are easy to scan for families with kids.' },
-            { time: 'Afternoon', title: 'Food and rest', type: 'Family', description: 'Select a hotel or restaurant-style listing for a low-effort midday stop.' },
-            { time: 'Evening', title: 'Emergency and guidance', type: 'Family', description: 'Finish with emergency services and a short about section for practical reference.' }
-        ]
-    };
-
-    const state = { category: 'all', query: '', tab: '1-day', section: 'home' };
+    const state = { category: 'all', query: '', section: 'home' };
     const searchInput = document.getElementById('searchInput');
     const categorySelect = document.getElementById('categorySelect');
     const resetExplore = document.getElementById('resetExplore');
@@ -459,16 +596,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileNav = document.getElementById('mobileNav');
     const navToggle = document.getElementById('navToggle');
     const navToggleIcon = document.getElementById('navToggleIcon');
-    const tripModal = document.getElementById('tripModal');
-    const openTripModalBtn2 = document.getElementById('openTripModalBtn2');
-    const closeTripModal = document.getElementById('closeTripModal');
-    const planStepsContainer = document.getElementById('planSteps');
     const clearEmptyFilters = document.getElementById('clearEmptyFilters');
 
     function scrollToSection(id) { const target = document.getElementById(id); if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' }); if (mobileNav) { mobileNav.classList.add('hidden'); navToggleIcon.className = 'fas fa-bars'; } state.section = id; updateNavState(); }
     function updateNavState() { document.querySelectorAll('.js-scroll-link').forEach((link) => { const active = link.dataset.scrollTarget === state.section; link.classList.toggle('text-[#0e4f5c]', active); link.classList.toggle('font-semibold', active); if (!active && link.closest('nav')) link.classList.add('text-slate-500'); }); }
-    function renderPlanSteps() { const steps = planSteps[state.tab] || []; planStepsContainer.innerHTML = steps.map((step) => `<div class="flex gap-4 rounded-2xl border border-slate-200 p-4 sm:p-5 bg-slate-50/60"><div class="w-20 shrink-0"><div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-bold text-[#0e4f5c]">${step.time}</div></div><div class="flex-1"><div class="flex items-start justify-between gap-3 flex-wrap"><h3 class="text-base font-bold text-slate-900">${step.title}</h3><span class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">${step.type}</span></div><p class="mt-2 text-sm text-slate-500 leading-6">${step.description}</p></div></div>`).join(''); }
-    function updatePlanTabs() { document.querySelectorAll('.plan-tab').forEach((button) => { const active = button.dataset.tab === state.tab; button.classList.toggle('bg-[#0e4f5c]', active); button.classList.toggle('text-white', active); button.classList.toggle('border-[#0e4f5c]', active); button.classList.toggle('bg-slate-50', !active); button.classList.toggle('text-slate-600', !active); button.classList.toggle('border-slate-200', !active); }); renderPlanSteps(); }
+
+
     function setCategory(category) { state.category = category; categorySelect.value = category; const labelMap = { all: 'All categories', destination: 'Destinations', hotel: 'Hotels', transportation: 'Transportation', 'tour-guide': 'Tour Guides', delicacy: 'Delicacies', pasalubong: 'Pasalubong', emergency: 'Emergency Services' }; selectedCategoryLabel.textContent = labelMap[category] ?? 'All categories'; document.querySelectorAll('.explore-side').forEach((button) => { const active = button.dataset.category === category; button.classList.toggle('bg-[#e8f4f5]', active); button.classList.toggle('border-[#9ccfd3]', active); button.classList.toggle('text-[#0e4f5c]', active); button.classList.toggle('font-semibold', active); button.classList.toggle('bg-slate-50', !active); button.classList.toggle('border-slate-200', !active); button.classList.toggle('text-slate-600', !active); }); applyFilters(); }
     function applyFilters() { const query = state.query.trim().toLowerCase(); const filtered = exploreItems.filter((item) => { const matchesCategory = state.category === 'all' || item.category === state.category; const matchesQuery = !query || [item.name, item.location, item.categoryLabel, item.tag, item.description, item.status, item.opening].some((value) => value.toLowerCase().includes(query)); return matchesCategory && matchesQuery; }); exploreGrid.innerHTML = filtered.map((item) => `<article id="explore-card-${item.id}" data-explore-card class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col scroll-mt-24"><div class="relative h-48 bg-slate-100"><div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(8, 30, 35, 0.12), rgba(8, 30, 35, 0.42)), url('${item.image}')"></div><div class="absolute top-4 left-4 flex flex-wrap gap-2"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.12em] uppercase text-white bg-[#0e4f5c]">${item.tag}</span>${item.badges.map((badge) => `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.12em] uppercase bg-white text-slate-700 shadow-sm">${badge}</span>`).join('')}</div><div class="absolute bottom-4 left-4 right-4"><p class="text-white text-sm font-medium">${item.location}</p><h3 class="text-white text-2xl font-extrabold tracking-tight mt-1">${item.name}</h3></div></div><div class="p-5 flex-1 flex flex-col"><div class="flex items-center justify-between gap-3"><span class="text-xs font-semibold uppercase tracking-[0.16em] text-teal-600">${item.categoryLabel}</span><span class="text-sm text-slate-500 inline-flex items-center gap-1"><i class="fas fa-star text-amber-400"></i> ${item.rating}</span></div><p class="mt-3 text-sm text-slate-500 leading-6">${item.description}</p><div class="mt-4 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded-full bg-teal-50 text-teal-700 text-[11px] font-semibold">Updated Today</span><span class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-[11px] font-semibold">${item.opening}</span></div><div class="mt-5 pt-5 border-t border-slate-100 flex items-center justify-between gap-3"><button type="button" class="js-focus-card inline-flex items-center gap-2 text-sm font-semibold text-[#0e4f5c] hover:text-[#083a44]" data-card-id="${item.id}"><i class="fas fa-arrow-up-right-from-square"></i> Focus card</button><span class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">${item.status}</span></div></div></article>`).join(''); visibleExploreCount.textContent = String(filtered.length); emptyState.classList.toggle('hidden', filtered.length !== 0); searchEcho.classList.toggle('hidden', query.length === 0); searchEchoValue.textContent = state.query.trim(); }
 
@@ -531,11 +664,8 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.addEventListener('input', () => { state.query = searchInput.value; applyFilters(); });
     resetExplore.addEventListener('click', () => { state.category = 'all'; state.query = ''; searchInput.value = ''; categorySelect.value = 'all'; setCategory('all'); });
     clearEmptyFilters.addEventListener('click', () => resetExplore.click());
-    document.addEventListener('click', (event) => { const focusButton = event.target.closest('.js-focus-card'); if (focusButton) { const card = document.getElementById(`explore-card-${focusButton.dataset.cardId}`); if (card) { document.querySelectorAll('[data-explore-card]').forEach((el) => el.classList.remove('ring-2', 'ring-[#0e4f5c]', 'ring-offset-2', 'ring-offset-[#f0f5f7]')); card.classList.add('ring-2', 'ring-[#0e4f5c]', 'ring-offset-2', 'ring-offset-[#f0f5f7]'); card.scrollIntoView({ behavior: 'smooth', block: 'center' }); } return; } const tab = event.target.closest('.plan-tab'); if (tab) { state.tab = tab.dataset.tab; updatePlanTabs(); } });
-    openTripModalBtn2.addEventListener('click', () => tripModal.classList.remove('hidden'));
-    closeTripModal.addEventListener('click', () => tripModal.classList.add('hidden'));
-    tripModal.addEventListener('click', (event) => { if (event.target === tripModal) tripModal.classList.add('hidden'); });
-    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { tripModal.classList.add('hidden'); mobileNav.classList.add('hidden'); navToggleIcon.className = 'fas fa-bars'; closeProfileDropdown(); } });
+    document.addEventListener('click', (event) => { const focusButton = event.target.closest('.js-focus-card'); if (focusButton) { const card = document.getElementById(`explore-card-${focusButton.dataset.cardId}`); if (card) { document.querySelectorAll('[data-explore-card]').forEach((el) => el.classList.remove('ring-2', 'ring-[#0e4f5c]', 'ring-offset-2', 'ring-offset-[#f0f5f7]')); card.classList.add('ring-2', 'ring-[#0e4f5c]', 'ring-offset-2', 'ring-offset-[#f0f5f7]'); card.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { mobileNav.classList.add('hidden'); navToggleIcon.className = 'fas fa-bars'; closeProfileDropdown(); } });
     const sections = ['home', 'explore', 'plan', 'reviews', 'about'].map((id) => document.getElementById(id)).filter(Boolean);
     const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { state.section = entry.target.id; updateNavState(); } }); }, { rootMargin: '-35% 0px -45% 0px', threshold: 0.15 });
     sections.forEach((section) => observer.observe(section));

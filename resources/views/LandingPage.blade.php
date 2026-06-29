@@ -781,6 +781,14 @@
             flex-shrink: 0;
         }
 
+        /* ─── ABOUT SECTION ─── */
+        .lp-about-section {
+            background: #fff;
+        }
+        .lp-about-section .btn-explore {
+            display: inline-flex;
+        }
+
         /* ─── FOOTER ─── */
         .lp-footer {
             background: #0e2d35;
@@ -916,8 +924,10 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .portals-grid {
-                grid-template-columns: 1fr;
+            .lp-about-section [style*="grid-template-columns:repeat(3,1fr)"] {
+                grid-template-columns: 1fr !important;
+                max-width: 400px;
+                margin: 0 auto;
             }
 
             .footer-grid {
@@ -967,6 +977,12 @@
                 grid-template-columns: 1fr;
             }
 
+            .lp-about-section [style*="grid-template-columns:repeat(3,1fr)"] {
+                grid-template-columns: 1fr !important;
+                max-width: 360px;
+                margin: 0 auto;
+            }
+
             .footer-grid {
                 grid-template-columns: 1fr;
             }
@@ -982,7 +998,7 @@
         <!-- ═══ NAVIGATION ═══ -->
         <header class="lp-nav">
             <a href="/" class="lp-logo">
-                <div class="lp-logo-icon">iT</div>
+                <img src="{{ asset('itour-logo.png') }}" alt="iTOUR Davao Oriental" style="width:auto;height:32px;">
                 <div class="lp-logo-text">
                     <span>iTOUR</span>
                     <span>DAVAO ORIENTAL</span>
@@ -991,16 +1007,15 @@
 
             <ul class="lp-navlinks">
                 <li><a href="#" class="active">Home</a></li>
-                <li><a href="#destinations">Destinations</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portals">Portals</a></li>
-                <li><a href="#announcements">Announcements</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#highlights">Tourism Highlights</a></li>
+                <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
 
             <div class="lp-nav-auth">
-                <a href="{{ route('login') }}" class="login-btn">Login</a>
-                <a href="#" class="register-btn">Register Visit</a>
+                <a href="{{ route('login') }}" class="login-btn">Sign In</a>
+                <a href="{{ route('register') }}" class="register-btn">Create Account</a>
             </div>
         </header>
 
@@ -1025,15 +1040,15 @@
                 </p>
 
                 <div class="lp-hero-btns">
-                    <a href="#destinations" class="btn-explore">
+                    <a href="#highlights" class="btn-explore">
                         Explore Destinations
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
                     </a>
-                    <a href="#" class="btn-register-tourist">Register as Tourist</a>
-                    <a href="#" class="btn-establishments">View Establishments</a>
+                    <a href="{{ route('register') }}" class="btn-register-tourist">Create Account</a>
+                    <a href="#features" class="btn-establishments">Learn More</a>
                 </div>
 
                 <div class="lp-hero-stats">
@@ -1057,10 +1072,46 @@
             </div>
         </section>
 
-        <!-- ═══ TOURISM STATISTICS ═══ -->
-        <section class="lp-section lp-stats-section">
+        <!-- ═══ FEATURES ═══ -->
+        <section class="lp-section lp-services-section" id="features">
             <div class="lp-section-inner">
-                <span class="section-tag">Tourism Statistics</span>
+                <span class="section-tag">Features</span>
+                <h2 class="section-title">Everything you need before you go</h2>
+                <p class="section-subtitle">Quick access to the essential tools and services for visitors of Davao Oriental.</p>
+                <hr class="section-divider">
+                <div class="services-grid">
+                    <a href="#" class="service-card">
+                        <span class="service-icon"><i class="fas fa-map-location-dot"></i></span>
+                        <div class="service-card-title">Travel Guide</div>
+                        <div class="service-card-desc">Itineraries, tips, and routes across the province.</div>
+                        <span class="service-card-link">Open Guide →</span>
+                    </a>
+                    <a href="#" class="service-card">
+                        <span class="service-icon"><i class="fas fa-bus-simple"></i></span>
+                        <div class="service-card-title">Transportation Information</div>
+                        <div class="service-card-desc">Buses, vans, boats, and ferry schedules.</div>
+                        <span class="service-card-link">View Routes →</span>
+                    </a>
+                    <a href="#" class="service-card">
+                        <span class="service-icon"><i class="fas fa-shield-halved"></i></span>
+                        <div class="service-card-title">Emergency Services</div>
+                        <div class="service-card-desc">Police, hospital, fire, and coast guard hotlines.</div>
+                        <span class="service-card-link">View Hotlines →</span>
+                    </a>
+                    <a href="#" class="service-card">
+                        <span class="service-icon"><i class="fas fa-clipboard-list"></i></span>
+                        <div class="service-card-title">Tourist Registration</div>
+                        <div class="service-card-desc">Register your visit in seconds via QR or form.</div>
+                        <span class="service-card-link">Register Now →</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ TOURISM HIGHLIGHTS ═══ -->
+        <section class="lp-section lp-stats-section" id="highlights">
+            <div class="lp-section-inner">
+                <span class="section-tag">Tourism Highlights</span>
                 <h2 class="section-title">Davao Oriental tourism at a glance</h2>
                 <p class="section-subtitle">Key figures from registered visits and accredited establishments.</p>
                 <hr class="section-divider">
@@ -1090,7 +1141,7 @@
         </section>
 
         <!-- ═══ FEATURED DESTINATIONS ═══ -->
-        <section class="lp-section lp-destinations-section" id="destinations">
+        <section class="lp-section lp-destinations-section">
             <div class="lp-section-inner">
                 <div class="dest-header">
                     <div class="dest-header-left">
@@ -1233,162 +1284,58 @@
             </div>
         </section>
 
-        <!-- ═══ TOURIST SERVICES ═══ -->
-        <section class="lp-section lp-services-section" id="services">
+        <!-- ═══ ABOUT iTOUR ═══ -->
+        <section class="lp-section lp-about-section" id="about">
             <div class="lp-section-inner">
-                <span class="section-tag">Tourist Services</span>
-                <h2 class="section-title">Everything you need before you go</h2>
-                <p class="section-subtitle">Quick access to the essential services for visitors of Davao Oriental.</p>
-                <hr class="section-divider">
-                <div class="services-grid">
-                    <a href="#" class="service-card">
-                        <span class="service-icon"><i class="fas fa-map-location-dot"></i></span>
-                        <div class="service-card-title">Travel Guide</div>
-                        <div class="service-card-desc">Itineraries, tips, and routes across the province.</div>
-                        <span class="service-card-link">Open Guide →</span>
-                    </a>
-                    <a href="#" class="service-card">
-                        <span class="service-icon"><i class="fas fa-bus-simple"></i></span>
-                        <div class="service-card-title">Transportation Information</div>
-                        <div class="service-card-desc">Buses, vans, boats, and ferry schedules.</div>
-                        <span class="service-card-link">View Routes →</span>
-                    </a>
-                    <a href="#" class="service-card">
-                        <span class="service-icon"><i class="fas fa-shield-halved"></i></span>
-                        <div class="service-card-title">Emergency Services</div>
-                        <div class="service-card-desc">Police, hospital, fire, and coast guard hotlines.</div>
-                        <span class="service-card-link">View Hotlines →</span>
-                    </a>
-                    <a href="#" class="service-card">
-                        <span class="service-icon"><i class="fas fa-clipboard-list"></i></span>
-                        <div class="service-card-title">Tourist Registration</div>
-                        <div class="service-card-desc">Register your visit in seconds via QR or form.</div>
-                        <span class="service-card-link">Register Now →</span>
-                    </a>
+                <div style="text-align:center;max-width:800px;margin:0 auto;">
+                    <span class="section-tag">About iTOUR</span>
+                    <h2 class="section-title" style="margin-bottom:20px;">Your gateway to Davao Oriental</h2>
+                    <p style="font-size:15px;color:#5a7880;line-height:1.8;margin-bottom:40px;">
+                        iTOUR is the official Integrated Tourism Information and Monitoring System of the
+                        <strong style="color:#0e2d35;">Provincial Tourism Office of Davao Oriental</strong>.
+                        Designed to connect tourists, accredited establishments, and tourism personnel on a single
+                        platform, iTOUR makes it easy to discover destinations, register visits, monitor arrivals,
+                        and generate insights that drive sustainable tourism across the province.
+                    </p>
                 </div>
-            </div>
-        </section>
 
-        <!-- ═══ USER PORTAL ACCESS ═══ -->
-        <section class="lp-section lp-portals-section" id="portals">
-            <div class="lp-section-inner">
-                <span class="section-tag">User Portal Access</span>
-                <h2 class="section-title">Choose your portal</h2>
-                <p class="section-subtitle">Tailored access for tourists, accredited establishments, and Provincial Tourism
-                    Office personnel.</p>
-                <hr class="section-divider">
-                <div class="portals-grid">
-                    <!-- Public Tourist -->
-                    <div class="portal-card">
-                        <div class="portal-card-header">
-                            <div class="portal-type-label">Public Tourist</div>
-                            <div class="portal-card-title">Public Tourist Portal</div>
-                            <div class="portal-card-subtitle">Plan your trip and share your experience.</div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+                    <div style="background:#fff;border:1px solid #d8eaed;border-radius:10px;padding:28px 24px;text-align:center;">
+                        <div style="font-size:32px;margin-bottom:14px;color:#004e5b;">
+                            <i class="fas fa-binoculars"></i>
                         </div>
-                        <div class="portal-card-body">
-                            <ul class="portal-features">
-                                <li>Explore destinations</li>
-                                <li>Register visits</li>
-                                <li>Submit feedback</li>
-                            </ul>
-                            <a href="#" class="btn-access-portal">Access Portal →</a>
-                        </div>
+                        <h3 style="font-size:15px;font-weight:700;color:#0e2d35;margin-bottom:10px;">Discover</h3>
+                        <p style="font-size:13px;color:#6a8e96;line-height:1.6;">
+                            Explore curated destinations, travel guides, and real-time updates — all in one place.
+                        </p>
                     </div>
-
-                    <!-- Accredited Establishment -->
-                    <div class="portal-card">
-                        <div class="portal-card-header establishment">
-                            <div class="portal-type-label">Establishment</div>
-                            <div class="portal-card-title">Accredited Establishment Portal</div>
-                            <div class="portal-card-subtitle">Manage your tourism business with iTOUR.</div>
+                    <div style="background:#fff;border:1px solid #d8eaed;border-radius:10px;padding:28px 24px;text-align:center;">
+                        <div style="font-size:32px;margin-bottom:14px;color:#004e5b;">
+                            <i class="fas fa-qrcode"></i>
                         </div>
-                        <div class="portal-card-body">
-                            <ul class="portal-features">
-                                <li>Manage establishment profile</li>
-                                <li>Access QR code</li>
-                                <li>Monitor tourist arrivals</li>
-                            </ul>
-                            <a href="#" class="btn-access-portal" style="background:#136b5a;">Access Portal →</a>
-                        </div>
+                        <h3 style="font-size:15px;font-weight:700;color:#0e2d35;margin-bottom:10px;">Register</h3>
+                        <p style="font-size:13px;color:#6a8e96;line-height:1.6;">
+                            QR-code-based visitor registration for seamless check-ins at accredited establishments.
+                        </p>
                     </div>
-
-                    <!-- Tourism Personnel -->
-                    <div class="portal-card">
-                        <div class="portal-card-header personnel">
-                            <div class="portal-type-label">Tourism Personnel</div>
-                            <div class="portal-card-title">Tourism Personnel Portal</div>
-                            <div class="portal-card-subtitle">Provincial Tourism Office monitoring &amp; reports.</div>
+                    <div style="background:#fff;border:1px solid #d8eaed;border-radius:10px;padding:28px 24px;text-align:center;">
+                        <div style="font-size:32px;margin-bottom:14px;color:#004e5b;">
+                            <i class="fas fa-chart-line"></i>
                         </div>
-                        <div class="portal-card-body">
-                            <ul class="portal-features">
-                                <li>Monitor tourist arrivals</li>
-                                <li>Manage establishments</li>
-                                <li>Generate reports</li>
-                            </ul>
-                            <a href="#" class="btn-access-portal" style="background:#1e6b7a;">Access Portal →</a>
-                        </div>
+                        <h3 style="font-size:15px;font-weight:700;color:#0e2d35;margin-bottom:10px;">Monitor</h3>
+                        <p style="font-size:13px;color:#6a8e96;line-height:1.6;">
+                            Real-time visitor analytics and experience feedback for data-driven tourism management.
+                        </p>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- ═══ ANNOUNCEMENTS ═══ -->
-        <section class="lp-section lp-announcements-section" id="announcements">
-            <div class="lp-section-inner">
-                <div class="announcements-header">
-                    <div>
-                        <span class="section-tag">Latest Announcements</span>
-                        <h2 class="section-title">Stay informed before you travel</h2>
-                    </div>
-                    <a href="#" class="btn-view-all" style="margin-bottom: 8px;">All announcements →</a>
-                </div>
-                <hr class="section-divider" style="margin-top: 16px;">
-
-                <div class="announcements-list">
-                    <a href="#" class="announcement-item">
-                        <span class="announcement-tag tag-advisory">ADVISORY</span>
-                        <div class="announcement-content">
-                            <div class="announcement-title">Tourism Office Advisory: Updated visitor guidelines now in
-                                effect.</div>
-                            <div class="announcement-date">Today</div>
-                        </div>
-                        <span class="announcement-arrow">→</span>
-                    </a>
-                    <a href="#" class="announcement-item">
-                        <span class="announcement-tag tag-weather">WEATHER</span>
-                        <div class="announcement-content">
-                            <div class="announcement-title">Weather Advisory: Light to moderate rains expected in coastal
-                                Mati this weekend.</div>
-                            <div class="announcement-date">Today</div>
-                        </div>
-                        <span class="announcement-arrow">→</span>
-                    </a>
-                    <a href="#" class="announcement-item">
-                        <span class="announcement-tag tag-festival">FESTIVAL</span>
-                        <div class="announcement-content">
-                            <div class="announcement-title">Upcoming Festival: Pujada Bay Festival schedule and entry pass
-                                released.</div>
-                            <div class="announcement-date">2 days ago</div>
-                        </div>
-                        <span class="announcement-arrow">→</span>
-                    </a>
-                    <a href="#" class="announcement-item">
-                        <span class="announcement-tag tag-guideline">GUIDELINE</span>
-                        <div class="announcement-content">
-                            <div class="announcement-title">Travel Guidelines: Updated visitor registration procedure for
-                                surf events.</div>
-                            <div class="announcement-date">5 days ago</div>
-                        </div>
-                        <span class="announcement-arrow">→</span>
-                    </a>
-                    <a href="#" class="announcement-item">
-                        <span class="announcement-tag tag-update">UPDATE</span>
-                        <div class="announcement-content">
-                            <div class="announcement-title">Destination Update: Aliwagwag Falls viewing deck reopens this
-                                week.</div>
-                            <div class="announcement-date">1 week ago</div>
-                        </div>
-                        <span class="announcement-arrow">→</span>
+                <div style="text-align:center;margin-top:40px;">
+                    <a href="{{ route('register') }}" class="btn-explore" style="display:inline-flex;">
+                        Get Started
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
                     </a>
                 </div>
             </div>
@@ -1400,7 +1347,7 @@
                 <div class="footer-grid">
                     <!-- Brand -->
                     <div>
-                        <div class="footer-brand-icon">iT</div>
+                        <img src="{{ asset('itour-logo.png') }}" alt="iTOUR Davao Oriental" style="width:auto;height:36px;">
                         <span class="footer-brand-name">iTOUR</span>
                         <span class="footer-brand-province">DAVAO ORIENTAL</span>
                         <p class="footer-brand-desc">

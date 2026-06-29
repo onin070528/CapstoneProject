@@ -11,7 +11,7 @@
             <p class="text-sm text-slate-500 mt-1">Log of tourists checked in at your establishment.</p>
         </div>
         <a href="/establishment/manual-encoding" class="bg-[#0a4e5c] hover:bg-[#073640] text-white px-4 py-2 text-xs font-semibold rounded-[6px] tracking-wide transition shadow-sm flex items-center gap-1.5 self-start sm:self-center">
-            <i class="fas fa-plus text-[10px]"></i> Manual Entry
+            <i class="fas fa-plus text-[10px]"></i> Arrival Recording
         </a>
     </div>
 
@@ -25,7 +25,7 @@
                 <select class="bg-slate-50 border border-slate-200 px-3 py-1.5 text-xs rounded-[6px] text-slate-600 focus:outline-none focus:bg-white transition-all">
                     <option value="">All Methods</option>
                     <option value="qr">QR Scan</option>
-                    <option value="manual">Manual Entry</option>
+                    <option value="manual">Arrival Recording</option>
                 </select>
             </div>
         </div>
