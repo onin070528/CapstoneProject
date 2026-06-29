@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Establishment;
+
 class PTOAdminController extends Controller
 {
     public function dashboard()
@@ -23,7 +25,27 @@ class PTOAdminController extends Controller
 
     public function establishments()
     {
-        return view('PTOAdmin.establishments');
+        $establishments = Establishment::orderBy('id', 'desc')->get();
+        return view('PTOAdmin.establishments', compact('establishments'));
+    }
+
+    public function storeEstablishment(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'municipality' => 'required|string|max:255',
+            'owner_name' => 'nullable|string|max:255',
+            'owner_phone' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'location' => 'nullable|string|max:255',
+            'lat' => 'nullable|numeric',
+            'lng' => 'nullable|numeric',
+        ]);
+
+        $establishment = Establishment::create($validated);
+
+        return redirect()->route('admin.establishments')->with('success', 'Establishment ' . $establishment->name . ' registered successfully!');
     }
 
     public function qrGeneration()

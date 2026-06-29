@@ -68,6 +68,7 @@ Route::prefix('admin')
         Route::get('/tourist-monitoring', [PTOAdminController::class, 'touristMonitoring'])->name('tourist-monitoring');
         Route::get('/experience-analytics', [PTOAdminController::class, 'experienceAnalytics'])->name('experience-analytics');
         Route::get('/establishments', [PTOAdminController::class, 'establishments'])->name('establishments');
+        Route::post('/establishments', [PTOAdminController::class, 'storeEstablishment'])->name('establishments.store');
         Route::get('/qr-generation', [PTOAdminController::class, 'qrGeneration'])->name('qr-generation');
         Route::get('/destinations', [PTOAdminController::class, 'destinations'])->name('destinations');
         Route::get('/reports', [PTOAdminController::class, 'reports'])->name('reports');
@@ -75,3 +76,17 @@ Route::prefix('admin')
         Route::get('/audit-logs', [PTOAdminController::class, 'auditLogs'])->name('audit-logs');
         Route::get('/system-settings', [PTOAdminController::class, 'systemSettings'])->name('system-settings');
     });
+
+Route::get('/qr-test', function () {
+    try {
+        $qr = SimpleSoftwareIO\QrCode\Facades\QrCode::size(200)->generate('Verify QR code package works!');
+        return response($qr)->header('Content-Type', 'image/svg+xml');
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()]);
+    }
+});
+
+Route::get('/feedback/{uuid}', [HomeController::class, 'showFeedbackForm'])->name('feedback.show');
+Route::post('/feedback/{uuid}', [HomeController::class, 'submitFeedbackForm'])->name('feedback.submit');
+
+

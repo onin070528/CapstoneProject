@@ -708,20 +708,21 @@ function getEstablishmentReviews(id) {
     return [...(userAddedEstReviews[id] || []), ...(establishmentReviewsMap[id] || [])];
 }
 
-try {
-    const exploreItems = [
-        { id: 1, name: 'Dahican Beach', location: 'Mati City', category: 'destination', categoryLabel: 'Destination', tag: 'Beach', badges: ['Verified', 'Open Now'], opening: 'Updated Today', status: 'Featured', rating: '4.8', description: 'A popular coastal stop known for surfing, wide shoreline views, and easy access from Mati City.', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop' },
-        { id: 2, name: 'Aliwagwag Falls', location: 'Cateel', category: 'destination', categoryLabel: 'Destination', tag: 'Waterfall', badges: ['Accredited', 'Updated Today'], opening: 'Open Now', status: 'Featured', rating: '4.9', description: 'A multi-tier waterfall destination with scenic trails and a strong nature-focused tourism identity.', image: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?q=80&w=1200&auto=format&fit=crop' },
-        { id: 3, name: 'Mt. Hamiguitan Scenic Area', location: 'San Isidro', category: 'destination', categoryLabel: 'Destination', tag: 'Mountain', badges: ['Verified', 'Updated Today'], opening: 'Open Now', status: 'Featured', rating: '4.9', description: 'Mountain landscapes and protected nature areas suited for a planned day trip or overnight route.', image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop' },
-        { id: 4, name: 'Mati Marina Hotel', location: 'Mati City', category: 'hotel', categoryLabel: 'Hotel', tag: 'Stay', badges: ['Verified', 'Accredited'], opening: 'Open Now', status: 'Nearby', rating: '4.6', description: 'A city-center stay option for visitors who want easy access to food, transport, and local attractions.', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop' },
-        { id: 5, name: 'Davao Oriental Van Service', location: 'Province-wide', category: 'transportation', categoryLabel: 'Transportation', tag: 'Transport', badges: ['Accredited', 'Updated Today'], opening: 'Open Now', status: 'Available', rating: '4.5', description: 'Front-end demo card for vans and transfers that can be filtered alongside destination listings.', image: 'https://images.unsplash.com/photo-1507878866276-a947ef722fee?q=80&w=1200&auto=format&fit=crop' },
-        { id: 6, name: 'Marang and Local Sweets', location: 'Mati Public Market', category: 'delicacy', categoryLabel: 'Delicacy', tag: 'Food', badges: ['Updated Today'], opening: 'Open Now', status: 'Local favorite', rating: '4.7', description: 'Sample local delicacy listing for a scanable prototype food stop inside the Explore directory.', image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=1200&auto=format&fit=crop' },
-        { id: 7, name: 'Carved Souvenir Crafts', location: 'Mati City', category: 'pasalubong', categoryLabel: 'Pasalubong', tag: 'Souvenir', badges: ['Verified'], opening: 'Open Now', status: 'Popular', rating: '4.6', description: 'Gift and souvenir demo listing for easy scanning in a tourism shopping context.', image: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=1200&auto=format&fit=crop' },
-        { id: 8, name: 'Tourism Assistance Hotline', location: 'Provincial Capitol, Mati City', category: 'emergency', categoryLabel: 'Emergency Services', tag: 'Help', badges: ['Accredited', 'Updated Today'], opening: 'Open Now', status: 'Contact', rating: '24/7', description: 'Emergency and assistance information shown as a front-end reference item only.', image: 'https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=1200&auto=format&fit=crop' },
-        { id: 9, name: 'Licensed Tour Guide Desk', location: 'Mati City', category: 'tour-guide', categoryLabel: 'Tour Guide', tag: 'Guide', badges: ['Verified', 'Accredited'], opening: 'Open Now', status: 'Book demo', rating: '4.8', description: 'Sample guide profile for prototype filtering, search, and section browsing.', image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop' }
+const exploreItems = [
+        { id: 1, name: 'Dahican Beach', location: 'Mati City', lat: 6.7337, lng: 126.2639, category: 'destination', categoryLabel: 'Destination', tag: 'Beach', badges: ['Verified', 'Open Now'], opening: 'Updated Today', status: 'Featured', rating: '4.8', description: 'A popular coastal stop known for surfing, wide shoreline views, and easy access from Mati City.', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop' },
+        { id: 2, name: 'Aliwagwag Falls', location: 'Cateel', lat: 7.7917, lng: 126.4528, category: 'destination', categoryLabel: 'Destination', tag: 'Waterfall', badges: ['Accredited', 'Updated Today'], opening: 'Open Now', status: 'Featured', rating: '4.9', description: 'A multi-tier waterfall destination with scenic trails and a strong nature-focused tourism identity.', image: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?q=80&w=1200&auto=format&fit=crop' },
+        { id: 3, name: 'Mt. Hamiguitan Scenic Area', location: 'San Isidro', lat: 6.7200, lng: 126.1700, category: 'destination', categoryLabel: 'Destination', tag: 'Mountain', badges: ['Verified', 'Updated Today'], opening: 'Open Now', status: 'Featured', rating: '4.9', description: 'Mountain landscapes and protected nature areas suited for a planned day trip or overnight route.', image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop' },
+        { id: 4, name: 'Mati Marina Hotel', location: 'Mati City', lat: 6.9555, lng: 126.2173, category: 'hotel', categoryLabel: 'Hotel', tag: 'Stay', badges: ['Verified', 'Accredited'], opening: 'Open Now', status: 'Nearby', rating: '4.6', description: 'A city-center stay option for visitors who want easy access to food, transport, and local attractions.', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop' },
+        { id: 5, name: 'Davao Oriental Van Service', location: 'Province-wide', lat: 6.9530, lng: 126.2200, category: 'transportation', categoryLabel: 'Transportation', tag: 'Transport', badges: ['Accredited', 'Updated Today'], opening: 'Open Now', status: 'Available', rating: '4.5', description: 'Front-end demo card for vans and transfers that can be filtered alongside destination listings.', image: 'https://images.unsplash.com/photo-1507878866276-a947ef722fee?q=80&w=1200&auto=format&fit=crop' },
+        { id: 6, name: 'Marang and Local Sweets', location: 'Mati Public Market', lat: 6.9500, lng: 126.2155, category: 'delicacy', categoryLabel: 'Delicacy', tag: 'Food', badges: ['Updated Today'], opening: 'Open Now', status: 'Local favorite', rating: '4.7', description: 'Sample local delicacy listing for a scanable prototype food stop inside the Explore directory.', image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=1200&auto=format&fit=crop' },
+        { id: 7, name: 'Carved Souvenir Crafts', location: 'Mati City', lat: 6.9545, lng: 126.2180, category: 'pasalubong', categoryLabel: 'Pasalubong', tag: 'Souvenir', badges: ['Verified'], opening: 'Open Now', status: 'Popular', rating: '4.6', description: 'Gift and souvenir demo listing for easy scanning in a tourism shopping context.', image: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=1200&auto=format&fit=crop' },
+        { id: 8, name: 'Tourism Assistance Hotline', location: 'Provincial Capitol, Mati City', lat: 6.9470, lng: 126.2230, category: 'emergency', categoryLabel: 'Emergency Services', tag: 'Help', badges: ['Accredited', 'Updated Today'], opening: 'Open Now', status: 'Contact', rating: '24/7', description: 'Emergency and assistance information shown as a front-end reference item only.', image: 'https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=1200&auto=format&fit=crop' },
+        { id: 9, name: 'Licensed Tour Guide Desk', location: 'Mati City', lat: 6.9560, lng: 126.2160, category: 'tour-guide', categoryLabel: 'Tour Guide', tag: 'Guide', badges: ['Verified', 'Accredited'], opening: 'Open Now', status: 'Book demo', rating: '4.8', description: 'Sample guide profile for prototype filtering, search, and section browsing.', image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop' }
     ];
 
     const state = { category: 'all', query: '', section: 'home' };
+
+try {
     const searchInput = document.getElementById('searchInput');
     const categorySelect = document.getElementById('categorySelect');
     const resetExplore = document.getElementById('resetExplore');
@@ -1698,6 +1699,406 @@ function initFeedback() {
         if (event.key === 'Escape') closeFeedbackForm();
     });
 }
+
+// ═══ MAPBOX MAPS INTEGRATION ═══
+
+(function initMaps() {
+    const MAPBOX_TOKEN = '{{ env("VITE_MAPBOX_TOKEN") }}';
+    if (!MAPBOX_TOKEN || !MAPBOX_TOKEN.startsWith('pk.') || typeof mapboxgl === 'undefined') {
+        console.warn('Mapbox token missing or mapboxgl not loaded');
+        const fallback = document.getElementById('mapFallback');
+        if (fallback) fallback.style.display = 'flex';
+        return;
+    }
+
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+
+    // ── Category → colour mapping ──
+    const CAT_COLORS = {
+        destination:     '#14b8a6', // teal-500
+        hotel:           '#6366f1', // indigo-500
+        delicacy:        '#f59e0b', // amber-500
+        pasalubong:      '#f59e0b', // amber-500
+        transportation:  '#0ea5e9', // sky-500
+        'tour-guide':    '#0ea5e9', // sky-500
+        emergency:       '#f43f5e', // rose-500
+    };
+    const CAT_ICONS = {
+        destination:     'fa-mountain-sun',
+        hotel:           'fa-bed',
+        delicacy:        'fa-utensils',
+        pasalubong:      'fa-gift',
+        transportation:  'fa-van-shuttle',
+        'tour-guide':    'fa-person-hiking',
+        emergency:       'fa-kit-medical',
+    };
+
+    // Mati City center (simulated user location)
+    const MATI_CENTER = [126.2173, 6.9555];
+
+    // Helper: build a round marker DOM element
+    function createMarkerEl(color, icon, size) {
+        size = size || 36;
+        const el = document.createElement('div');
+        el.style.cssText = `width:${size}px;height:${size}px;border-radius:50%;background:${color};border:3px solid #fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:transform .15s ease;`;
+        el.innerHTML = `<i class="fas ${icon}" style="color:#fff;font-size:${Math.round(size*0.38)}px;"></i>`;
+        el.addEventListener('mouseenter', () => el.style.transform = 'scale(1.18)');
+        el.addEventListener('mouseleave', () => el.style.transform = 'scale(1)');
+        return el;
+    }
+
+    // Helper: create popup HTML
+    function popupHtml(item) {
+        return `<div style="max-width:220px;font-family:Inter,sans-serif;">
+            <img src="${item.image}" alt="${item.name}" style="width:100%;height:110px;object-fit:cover;border-radius:10px 10px 0 0;" onerror="this.style.display='none'">
+            <div style="padding:10px 12px 12px;">
+                <p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:${CAT_COLORS[item.category] || '#14b8a6'};margin:0 0 4px;">${item.categoryLabel}</p>
+                <h4 style="font-size:14px;font-weight:800;color:#1e293b;margin:0 0 4px;line-height:1.25;">${item.name}</h4>
+                <p style="font-size:11px;color:#64748b;margin:0 0 6px;"><i class="fas fa-location-dot" style="margin-right:4px;"></i>${item.location}</p>
+                <p style="font-size:12px;color:#475569;line-height:1.5;margin:0 0 8px;">${item.description.substring(0, 100)}${item.description.length > 100 ? '…' : ''}</p>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="display:inline-flex;align-items:center;gap:4px;background:#fffbeb;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:700;color:#92400e;"><i class="fas fa-star" style="color:#f59e0b;font-size:10px;"></i> ${item.rating}</span>
+                    ${item.badges.map(b => `<span style="background:#f0fdfa;color:#0d9488;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700;">${b}</span>`).join('')}
+                </div>
+            </div>
+        </div>`;
+    }
+
+    // ── Nearby Map (home section) ───────────────────────────
+    let nearbyMap = null;
+    let nearbyMarkers = [];
+    let nearbyStyleSatellite = false;
+
+    function initNearbyMap() {
+        const container = document.getElementById('nearbyMapContainer');
+        if (!container || nearbyMap) return;
+
+        // Hide fallback
+        const fallback = document.getElementById('mapFallback');
+        if (fallback) fallback.style.display = 'none';
+
+        nearbyMap = new mapboxgl.Map({
+            container: 'nearbyMapContainer',
+            style: 'mapbox://styles/mapbox/light-v11',
+            center: MATI_CENTER,
+            zoom: 9,
+            attributionControl: false,
+            pitch: 20,
+        });
+
+        nearbyMap.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
+        nearbyMap.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-right');
+
+        nearbyMap.on('load', () => {
+            // Add a pulsing dot for simulated user location
+            const userEl = document.createElement('div');
+            userEl.style.cssText = 'width:18px;height:18px;border-radius:50%;background:#3b82f6;border:3px solid #fff;box-shadow:0 0 0 6px rgba(59,130,246,0.25),0 2px 6px rgba(0,0,0,0.2);';
+            new mapboxgl.Marker({ element: userEl }).setLngLat(MATI_CENTER)
+                .setPopup(new mapboxgl.Popup({ offset: 14, closeButton: false }).setHTML(
+                    '<div style="padding:6px 8px;font-family:Inter,sans-serif;"><p style="font-size:11px;font-weight:700;color:#0e4f5c;margin:0;">📍 Your Location</p><p style="font-size:10px;color:#64748b;margin:2px 0 0;">Mati City, Davao Oriental (simulated)</p></div>'
+                ))
+                .addTo(nearbyMap);
+
+            // Add markers for all explore items
+            if (typeof exploreItems !== 'undefined') {
+                const bounds = new mapboxgl.LngLatBounds();
+                bounds.extend(MATI_CENTER);
+
+                exploreItems.forEach(item => {
+                    if (!item.lat || !item.lng) return;
+                    const color = CAT_COLORS[item.category] || '#14b8a6';
+                    const icon  = CAT_ICONS[item.category] || 'fa-location-dot';
+                    const el    = createMarkerEl(color, icon, 32);
+
+                    const marker = new mapboxgl.Marker({ element: el, anchor: 'center' })
+                        .setLngLat([item.lng, item.lat])
+                        .setPopup(new mapboxgl.Popup({ offset: 20, maxWidth: '260px', closeButton: true }).setHTML(popupHtml(item)))
+                        .addTo(nearbyMap);
+
+                    nearbyMarkers.push({ marker, item });
+                    bounds.extend([item.lng, item.lat]);
+                });
+
+                nearbyMap.fitBounds(bounds, { padding: 60, maxZoom: 12, duration: 1200 });
+            }
+        });
+    }
+
+    // ── Fit all button ──
+    const fitAllBtn = document.getElementById('mapFitAllBtn');
+    if (fitAllBtn) {
+        fitAllBtn.addEventListener('click', () => {
+            if (!nearbyMap || !nearbyMarkers.length) return;
+            const bounds = new mapboxgl.LngLatBounds();
+            bounds.extend(MATI_CENTER);
+            nearbyMarkers.forEach(({ item }) => bounds.extend([item.lng, item.lat]));
+            nearbyMap.fitBounds(bounds, { padding: 60, maxZoom: 12, duration: 800 });
+        });
+    }
+
+    // ── Satellite toggle ──
+    const toggleStyleBtn = document.getElementById('mapToggleStyleBtn');
+    if (toggleStyleBtn) {
+        toggleStyleBtn.addEventListener('click', () => {
+            if (!nearbyMap) return;
+            nearbyStyleSatellite = !nearbyStyleSatellite;
+            const newStyle = nearbyStyleSatellite
+                ? 'mapbox://styles/mapbox/satellite-streets-v12'
+                : 'mapbox://styles/mapbox/light-v11';
+            const currentCenter = nearbyMap.getCenter();
+            const currentZoom   = nearbyMap.getZoom();
+            const currentPitch  = nearbyMap.getPitch();
+
+            nearbyMap.setStyle(newStyle);
+            toggleStyleBtn.innerHTML = nearbyStyleSatellite
+                ? '<i class="fas fa-map"></i> Streets'
+                : '<i class="fas fa-layer-group"></i> Satellite';
+
+            nearbyMap.once('style.load', () => {
+                nearbyMap.jumpTo({ center: currentCenter, zoom: currentZoom, pitch: currentPitch });
+                // Re-add markers
+                const userEl = document.createElement('div');
+                userEl.style.cssText = 'width:18px;height:18px;border-radius:50%;background:#3b82f6;border:3px solid #fff;box-shadow:0 0 0 6px rgba(59,130,246,0.25),0 2px 6px rgba(0,0,0,0.2);';
+                new mapboxgl.Marker({ element: userEl }).setLngLat(MATI_CENTER)
+                    .setPopup(new mapboxgl.Popup({ offset: 14, closeButton: false }).setHTML(
+                        '<div style="padding:6px 8px;font-family:Inter,sans-serif;"><p style="font-size:11px;font-weight:700;color:#0e4f5c;margin:0;">📍 Your Location</p><p style="font-size:10px;color:#64748b;margin:2px 0 0;">Mati City, Davao Oriental (simulated)</p></div>'
+                    )).addTo(nearbyMap);
+
+                nearbyMarkers.forEach(({ marker, item }) => {
+                    const color = CAT_COLORS[item.category] || '#14b8a6';
+                    const icon  = CAT_ICONS[item.category] || 'fa-location-dot';
+                    const el    = createMarkerEl(color, icon, 32);
+                    marker.remove();
+                    const newMarker = new mapboxgl.Marker({ element: el, anchor: 'center' })
+                        .setLngLat([item.lng, item.lat])
+                        .setPopup(new mapboxgl.Popup({ offset: 20, maxWidth: '260px', closeButton: true }).setHTML(popupHtml(item)))
+                        .addTo(nearbyMap);
+                    marker = newMarker;
+                });
+            });
+        });
+    }
+
+    // ── Nearby Home Strip (horizontal scroll cards) ──
+    function renderNearbyStrip() {
+        const strip = document.getElementById('nearbyHomeStrip');
+        if (!strip || typeof exploreItems === 'undefined') return;
+
+        // Sort by distance from Mati center
+        const withDist = exploreItems.filter(i => i.lat && i.lng).map(item => {
+            const dx = (item.lng - MATI_CENTER[0]) * 111.32 * Math.cos(MATI_CENTER[1] * Math.PI / 180);
+            const dy = (item.lat - MATI_CENTER[1]) * 110.574;
+            return { ...item, dist: Math.sqrt(dx*dx + dy*dy) };
+        }).sort((a, b) => a.dist - b.dist);
+
+        strip.innerHTML = withDist.map(item => {
+            const distLabel = item.dist < 1 ? `${Math.round(item.dist * 1000)}m` : `${item.dist.toFixed(1)}km`;
+            const color = CAT_COLORS[item.category] || '#14b8a6';
+            return `<div class="snap-start shrink-0 w-72 rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group" onclick="scrollToSection('explore')">
+                <div class="relative h-36 bg-slate-100 overflow-hidden">
+                    <img src="${item.image}" alt="${item.name}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop';">
+                    <div class="absolute inset-0" style="background:linear-gradient(to bottom,transparent 40%,rgba(8,30,35,0.55))"></div>
+                    <div class="absolute top-3 left-3">
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-[9px] font-bold tracking-[0.12em] uppercase text-white" style="background:${color}">${item.tag}</span>
+                    </div>
+                    <div class="absolute bottom-3 left-3 right-3">
+                        <h4 class="text-white text-sm font-extrabold leading-snug">${item.name}</h4>
+                    </div>
+                </div>
+                <div class="p-3.5">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="text-xs text-slate-400"><i class="fas fa-location-dot mr-1"></i>${item.location}</span>
+                        <span class="text-[10px] font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full"><i class="fas fa-route mr-1"></i>${distLabel}</span>
+                    </div>
+                    <div class="mt-2 flex items-center gap-2">
+                        <span class="text-xs font-semibold text-slate-500"><i class="fas fa-star text-amber-400 mr-0.5"></i>${item.rating}</span>
+                        ${item.badges.slice(0, 2).map(b => `<span class="text-[9px] font-bold text-slate-400 bg-slate-50 px-1.5 py-0.5 rounded-full">${b}</span>`).join('')}
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    // ── Explore Map (Near You mode) ─────────────────────────
+    let exploreMap = null;
+    let exploreMarkers = [];
+    let nearYouActive = false;
+
+    function initExploreMap() {
+        const container = document.getElementById('exploreMap');
+        if (!container || exploreMap) return;
+
+        exploreMap = new mapboxgl.Map({
+            container: 'exploreMap',
+            style: 'mapbox://styles/mapbox/light-v11',
+            center: MATI_CENTER,
+            zoom: 10,
+            attributionControl: false,
+        });
+        exploreMap.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
+        exploreMap.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-right');
+
+        exploreMap.on('load', () => {
+            refreshExploreMarkers();
+        });
+    }
+
+    function refreshExploreMarkers() {
+        if (!exploreMap) return;
+        // Remove old markers
+        exploreMarkers.forEach(m => m.marker.remove());
+        exploreMarkers = [];
+
+        if (typeof exploreItems === 'undefined') return;
+        const bounds = new mapboxgl.LngLatBounds();
+        let hasPoints = false;
+
+        // User location
+        const userEl2 = document.createElement('div');
+        userEl2.style.cssText = 'width:16px;height:16px;border-radius:50%;background:#3b82f6;border:3px solid #fff;box-shadow:0 0 0 5px rgba(59,130,246,0.22),0 1px 4px rgba(0,0,0,0.15);';
+        new mapboxgl.Marker({ element: userEl2 }).setLngLat(MATI_CENTER).addTo(exploreMap);
+        bounds.extend(MATI_CENTER);
+
+        const currentCat = (typeof state !== 'undefined') ? state.category : 'all';
+
+        exploreItems.forEach(item => {
+            if (!item.lat || !item.lng) return;
+            if (currentCat !== 'all' && item.category !== currentCat) return;
+
+            const color = CAT_COLORS[item.category] || '#14b8a6';
+            const icon  = CAT_ICONS[item.category] || 'fa-location-dot';
+            const el    = createMarkerEl(color, icon, 30);
+
+            const popup = new mapboxgl.Popup({ offset: 18, maxWidth: '250px', closeButton: true })
+                .setHTML(popupHtml(item));
+
+            const marker = new mapboxgl.Marker({ element: el, anchor: 'center' })
+                .setLngLat([item.lng, item.lat])
+                .setPopup(popup)
+                .addTo(exploreMap);
+
+            // On marker click, update the info bar
+            el.addEventListener('click', () => {
+                const infoBar  = document.getElementById('mapInfoBar');
+                const infoName = document.getElementById('mapInfoName');
+                const infoDist = document.getElementById('mapInfoDist');
+                if (infoBar && infoName) {
+                    infoBar.classList.remove('hidden');
+                    infoBar.classList.add('flex');
+                    infoName.textContent = item.name;
+                    const dx = (item.lng - MATI_CENTER[0]) * 111.32 * Math.cos(MATI_CENTER[1] * Math.PI / 180);
+                    const dy = (item.lat - MATI_CENTER[1]) * 110.574;
+                    const d  = Math.sqrt(dx*dx + dy*dy);
+                    infoDist.textContent = d < 1 ? `~${Math.round(d * 1000)}m away` : `~${d.toFixed(1)}km away`;
+                }
+                // Store card id for scroll-to
+                infoBar.dataset.cardId = item.id;
+            });
+
+            exploreMarkers.push({ marker, item });
+            bounds.extend([item.lng, item.lat]);
+            hasPoints = true;
+        });
+
+        if (hasPoints) {
+            exploreMap.fitBounds(bounds, { padding: 50, maxZoom: 13, duration: 600 });
+        }
+    }
+
+    // ── Near You toggle ──
+    const nearYouToggle = document.getElementById('nearYouToggle');
+    const nearYouIcon   = document.getElementById('nearYouIcon');
+    const nearYouLabel  = document.getElementById('nearYouLabel');
+    const nearYouSide   = document.getElementById('nearYouSidePanel');
+    const exploreMapPanel = document.getElementById('exploreMapPanel');
+
+    if (nearYouToggle) {
+        nearYouToggle.addEventListener('click', () => {
+            nearYouActive = !nearYouActive;
+            nearYouToggle.setAttribute('aria-pressed', String(nearYouActive));
+
+            if (nearYouActive) {
+                nearYouToggle.classList.add('bg-teal-50', 'border-teal-300', 'text-teal-700');
+                nearYouToggle.classList.remove('border-slate-300', 'text-slate-700');
+                if (nearYouIcon) { nearYouIcon.classList.remove('text-slate-400'); nearYouIcon.classList.add('text-teal-600'); }
+                if (nearYouLabel) nearYouLabel.textContent = 'Near You ✓';
+                if (nearYouSide) nearYouSide.classList.remove('hidden');
+                if (exploreMapPanel) {
+                    exploreMapPanel.classList.remove('hidden');
+                    // Lazy-init map
+                    if (!exploreMap) {
+                        setTimeout(() => { initExploreMap(); }, 80);
+                    } else {
+                        setTimeout(() => { exploreMap.resize(); refreshExploreMarkers(); }, 80);
+                    }
+                }
+            } else {
+                nearYouToggle.classList.remove('bg-teal-50', 'border-teal-300', 'text-teal-700');
+                nearYouToggle.classList.add('border-slate-300', 'text-slate-700');
+                if (nearYouIcon) { nearYouIcon.classList.add('text-slate-400'); nearYouIcon.classList.remove('text-teal-600'); }
+                if (nearYouLabel) nearYouLabel.textContent = 'Near You';
+                if (nearYouSide) nearYouSide.classList.add('hidden');
+                if (exploreMapPanel) exploreMapPanel.classList.add('hidden');
+                const infoBar = document.getElementById('mapInfoBar');
+                if (infoBar) { infoBar.classList.add('hidden'); infoBar.classList.remove('flex'); }
+            }
+        });
+    }
+
+    // ── Reset view / Hide map buttons ──
+    const mapResetViewBtn = document.getElementById('mapResetViewBtn');
+    if (mapResetViewBtn) {
+        mapResetViewBtn.addEventListener('click', () => {
+            if (!exploreMap) return;
+            const bounds = new mapboxgl.LngLatBounds();
+            bounds.extend(MATI_CENTER);
+            exploreMarkers.forEach(({ item }) => bounds.extend([item.lng, item.lat]));
+            exploreMap.fitBounds(bounds, { padding: 50, maxZoom: 13, duration: 600 });
+        });
+    }
+
+    const hideMapBtn = document.getElementById('hideMapBtn');
+    if (hideMapBtn) {
+        hideMapBtn.addEventListener('click', () => {
+            if (exploreMapPanel) exploreMapPanel.classList.add('hidden');
+        });
+    }
+
+    // ── Map info bar: scroll to card ──
+    const mapInfoScrollBtn = document.getElementById('mapInfoScrollBtn');
+    if (mapInfoScrollBtn) {
+        mapInfoScrollBtn.addEventListener('click', () => {
+            const infoBar = document.getElementById('mapInfoBar');
+            const cardId  = infoBar ? infoBar.dataset.cardId : null;
+            if (cardId) {
+                const card = document.getElementById(`explore-card-${cardId}`);
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.classList.add('ring-2', 'ring-[#0e4f5c]', 'ring-offset-2', 'ring-offset-[#f0f5f7]');
+                    setTimeout(() => card.classList.remove('ring-2', 'ring-[#0e4f5c]', 'ring-offset-2', 'ring-offset-[#f0f5f7]'), 3000);
+                }
+            }
+        });
+    }
+
+    // ── See all in Explore button ──
+    const seeAllBtn = document.getElementById('seeAllNearbyBtn');
+    if (seeAllBtn) {
+        seeAllBtn.addEventListener('click', () => {
+            scrollToSection('explore');
+            // Auto-activate Near You
+            if (!nearYouActive && nearYouToggle) {
+                setTimeout(() => nearYouToggle.click(), 400);
+            }
+        });
+    }
+
+    // ── Initialize on DOM ready ──
+    initNearbyMap();
+    renderNearbyStrip();
+
+    console.log('Mapbox maps initialized');
+})();
 
 console.log('SCRIPT ENDED');
 </script>

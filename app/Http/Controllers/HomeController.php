@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Establishment;
+use App\Models\Feedback;
+use Illuminate\Http\Request;
+
 class HomeController extends Controller
 {
     public function index()
@@ -102,5 +106,38 @@ class HomeController extends Controller
     public function publicEmergency()
     {
         return view('PublicUsers.emergency');
+    }
+
+    public function showFeedbackForm($uuid)
+    {
+        $establishment = Establishment::where('uuid', $uuid)->firstOrFail();
+        return view('PublicUsers.feedback-form', compact('establishment'));
+    }
+
+    public function submitFeedbackForm(Request $request, $uuid)
+    {
+        $establishment = Establishment::where('uuid', $uuid)->firstOrFail();
+
+        $validated = $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'feedback_text' => 'required|string|max:1000',
+            'tourist_name' => 'nullable|string|max:255',
+        ]);
+
+        Feedback::create([
+            'establishment_id' => $establishment->id,
+            'tourist_name' => $validated['tourist_name'] ?: 'Anonymous',
+            'rating' => $validated['rating'],
+            'feedback_text' => $validated['feedback_text'],
+            'visit_date' => now()->toDateString(),
+        ]);
+
+        // Recalculate average rating
+        $avgRating = $establishment->feedbacks()->avg('rating');
+        $establishment->update([
+            'rating' => round($avgRating, 1)
+        ]);
+
+        return redirect()->back()->with('success', 'Thank you! Your feedback has been submitted successfully.');
     }
 }
