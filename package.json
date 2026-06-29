@@ -4,7 +4,9 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "clean": "node -e \"const fs=require('fs');const f='public/hot';if(fs.existsSync(f)){fs.unlinkSync(f);console.log('Removed stale hot file');}else{console.log('No hot file found');}\"",
+        "start": "npm run clean && concurrently --kill-others-on-fail --names \"VITE,LARAVEL\" --prefix-colors \"cyan,green\" \"npm run dev\" \"php artisan serve\""
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",

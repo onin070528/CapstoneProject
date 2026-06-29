@@ -151,6 +151,59 @@
             </div>
         </section>
 
+        {{-- ── Interactive Map — Davao Oriental ───────────────────────────── --}}
+        <section id="nearby-map" class="pt-6 pb-2 scroll-mt-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {{-- Map card container --}}
+                <div class="rounded-3xl bg-white border border-slate-200 shadow-sm overflow-hidden">
+                    {{-- Map toolbar --}}
+                    <div class="flex items-center justify-between gap-3 px-5 sm:px-6 py-4 border-b border-slate-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-[#0e4f5c] flex items-center justify-center shadow-sm">
+                                <i class="fas fa-map-location-dot text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-800">Explore the Map</h3>
+                                <p class="text-[11px] text-slate-400 mt-0.5">Tourism spots across Davao Oriental · Click markers for details</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" id="mapFitAllBtn"
+                                class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#0e4f5c] transition px-3 py-2 rounded-xl hover:bg-slate-50 border border-slate-200">
+                                <i class="fas fa-expand"></i> Fit all
+                            </button>
+                            <button type="button" id="mapToggleStyleBtn"
+                                class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#0e4f5c] transition px-3 py-2 rounded-xl hover:bg-slate-50 border border-slate-200">
+                                <i class="fas fa-layer-group"></i> Satellite
+                            </button>
+                        </div>
+                    </div>
+
+                    {{-- Map container --}}
+                    <div id="nearbyMapContainer" style="height: 420px; width: 100%; position: relative;">
+                        {{-- Fallback if token is not set --}}
+                        <div id="mapFallback" class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 z-10" style="display:none;">
+                            <div class="w-16 h-16 rounded-2xl bg-slate-200 flex items-center justify-center mb-4">
+                                <i class="fas fa-map text-slate-400 text-2xl"></i>
+                            </div>
+                            <p class="text-sm font-semibold text-slate-600">Map requires a Mapbox public token</p>
+                            <p class="text-xs text-slate-400 mt-1">Add your <code class="bg-slate-200 px-1.5 py-0.5 rounded text-[11px]">pk.</code> token to <code class="bg-slate-200 px-1.5 py-0.5 rounded text-[11px]">VITE_MAPBOX_TOKEN</code> in .env</p>
+                        </div>
+                    </div>
+
+                    {{-- Map legend bar --}}
+                    <div class="flex items-center gap-4 flex-wrap px-5 sm:px-6 py-3 bg-slate-50/80 border-t border-slate-100">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">Legend</span>
+                        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-teal-500"></span><span class="text-[11px] text-slate-500">Destination</span></div>
+                        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span><span class="text-[11px] text-slate-500">Hotel</span></div>
+                        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span class="text-[11px] text-slate-500">Food & Souvenir</span></div>
+                        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span><span class="text-[11px] text-slate-500">Transport & Guide</span></div>
+                        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span><span class="text-[11px] text-slate-500">Emergency</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         {{-- Stats snapshot row --}}
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -487,6 +540,197 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { state.section = entry.target.id; updateNavState(); } }); }, { rootMargin: '-35% 0px -45% 0px', threshold: 0.15 });
     sections.forEach((section) => observer.observe(section));
     setCategory('all'); updatePlanTabs(); updateNavState();
+
+    // ── Mapbox Interactive Map ──────────────────────────────────────
+    (function initNearbyMap() {
+        const MAPBOX_TOKEN = '{{ env("VITE_MAPBOX_TOKEN", "") }}';
+        const mapContainer = document.getElementById('nearbyMapContainer');
+        const mapFallback  = document.getElementById('mapFallback');
+
+        if (!MAPBOX_TOKEN || MAPBOX_TOKEN.indexOf('pk.') !== 0 || MAPBOX_TOKEN === 'pk.YOUR_PUBLIC_TOKEN_HERE') {
+            if (mapFallback) mapFallback.style.display = 'flex';
+            return;
+        }
+
+        mapboxgl.accessToken = MAPBOX_TOKEN;
+
+        // Mati City center
+        const MATI_CENTER = [126.2168, 6.9553];
+
+        const map = new mapboxgl.Map({
+            container: 'nearbyMapContainer',
+            style: 'mapbox://styles/mapbox/light-v11',
+            center: MATI_CENTER,
+            zoom: 9.5,
+            pitch: 15,
+            bearing: 0,
+            antialias: true,
+            attributionControl: false
+        });
+
+        map.addControl(new mapboxgl.NavigationControl({ showCompass: true }), 'top-right');
+        map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-right');
+
+        // Color map for categories
+        const categoryColors = {
+            destination:    '#14b8a6',
+            hotel:          '#6366f1',
+            transportation: '#0ea5e9',
+            'tour-guide':   '#0ea5e9',
+            delicacy:       '#f59e0b',
+            pasalubong:     '#f59e0b',
+            emergency:      '#f43f5e'
+        };
+
+        // Marker data — real Davao Oriental coordinates
+        const mapMarkers = [
+            { id: 1,  name: 'Dahican Beach',              category: 'destination',    lat: 6.9370, lng: 126.2450, rating: '4.8', location: 'Mati City',           tag: 'Beach' },
+            { id: 2,  name: 'Aliwagwag Falls',             category: 'destination',    lat: 7.7833, lng: 126.4500, rating: '4.9', location: 'Cateel',              tag: 'Waterfall' },
+            { id: 3,  name: 'Mt. Hamiguitan',              category: 'destination',    lat: 6.7414, lng: 126.1647, rating: '4.9', location: 'San Isidro',          tag: 'Mountain' },
+            { id: 4,  name: 'Mati Marina Hotel',           category: 'hotel',          lat: 6.9553, lng: 126.2168, rating: '4.6', location: 'Mati City',           tag: 'Stay' },
+            { id: 5,  name: 'Davao Oriental Van Service',  category: 'transportation', lat: 6.9500, lng: 126.2200, rating: '4.5', location: 'Province-wide',       tag: 'Transport' },
+            { id: 6,  name: 'Marang and Local Sweets',     category: 'delicacy',       lat: 6.9520, lng: 126.2130, rating: '4.7', location: 'Mati Public Market',  tag: 'Food' },
+            { id: 7,  name: 'Carved Souvenir Crafts',      category: 'pasalubong',     lat: 6.9560, lng: 126.2190, rating: '4.6', location: 'Mati City',           tag: 'Souvenir' },
+            { id: 8,  name: 'Tourism Assistance Hotline',  category: 'emergency',      lat: 6.9480, lng: 126.2220, rating: '24/7', location: 'Provincial Capitol', tag: 'Help' },
+            { id: 9,  name: 'Licensed Tour Guide Desk',    category: 'tour-guide',     lat: 6.9545, lng: 126.2140, rating: '4.8', location: 'Mati City',           tag: 'Guide' },
+            { id: 10, name: 'Sleeping Dinosaur Island',    category: 'destination',    lat: 6.9220, lng: 126.2650, rating: '4.8', location: 'Mati City',           tag: 'Island' },
+            { id: 11, name: 'Subangan Museum',             category: 'destination',    lat: 6.9530, lng: 126.2250, rating: '4.5', location: 'Mati City',           tag: 'Museum' },
+            { id: 12, name: 'Cape San Agustin',            category: 'destination',    lat: 6.2700, lng: 126.1850, rating: '4.7', location: 'Governor Generoso',   tag: 'Cape' }
+        ];
+
+        const bounds = new mapboxgl.LngLatBounds();
+
+        mapMarkers.forEach((spot) => {
+            const color = categoryColors[spot.category] || '#64748b';
+            bounds.extend([spot.lng, spot.lat]);
+
+            // Create custom marker element
+            const el = document.createElement('div');
+            el.className = 'nearby-map-marker';
+            el.style.cssText = `
+                width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+                background: ${color}; border: 3px solid white;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.08);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                display: flex; align-items: center; justify-content: center;
+            `;
+            el.innerHTML = `<i class="fas fa-location-dot" style="color:white;font-size:13px;"></i>`;
+            el.addEventListener('mouseenter', () => { el.style.transform = 'scale(1.3)'; el.style.boxShadow = '0 4px 16px rgba(0,0,0,0.35), 0 0 0 2px ' + color; });
+            el.addEventListener('mouseleave', () => { el.style.transform = 'scale(1)'; el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.08)'; });
+
+            const popup = new mapboxgl.Popup({
+                offset: 20,
+                closeButton: true,
+                closeOnClick: false,
+                maxWidth: '280px',
+                className: 'nearby-map-popup'
+            }).setHTML(`
+                <div style="font-family:Inter,sans-serif;">
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+                        <span style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:999px;background:${color};color:white;font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">${spot.tag}</span>
+                        <span style="font-size:11px;color:#64748b;display:flex;align-items:center;gap:3px;">
+                            <i class="fas fa-star" style="color:#f59e0b;font-size:10px;"></i> ${spot.rating}
+                        </span>
+                    </div>
+                    <p style="font-size:14px;font-weight:800;color:#0f172a;margin:0 0 4px;">${spot.name}</p>
+                    <p style="font-size:12px;color:#64748b;margin:0;display:flex;align-items:center;gap:4px;">
+                        <i class="fas fa-location-dot" style="color:${color};font-size:10px;"></i> ${spot.location}
+                    </p>
+                </div>
+            `);
+
+            new mapboxgl.Marker({ element: el })
+                .setLngLat([spot.lng, spot.lat])
+                .setPopup(popup)
+                .addTo(map);
+
+            el.addEventListener('click', () => {
+                map.flyTo({ center: [spot.lng, spot.lat], zoom: 13, pitch: 30, duration: 1200, essential: true });
+            });
+        });
+
+        // Fit all markers on load
+        map.on('load', () => {
+            map.fitBounds(bounds, { padding: { top: 50, bottom: 40, left: 40, right: 40 }, maxZoom: 12, duration: 1000 });
+        });
+
+        // Fit All button
+        const fitAllBtn = document.getElementById('mapFitAllBtn');
+        if (fitAllBtn) {
+            fitAllBtn.addEventListener('click', () => {
+                map.fitBounds(bounds, { padding: { top: 50, bottom: 40, left: 40, right: 40 }, maxZoom: 12, duration: 1000 });
+            });
+        }
+
+        // Toggle satellite / streets
+        const toggleStyleBtn = document.getElementById('mapToggleStyleBtn');
+        let isSatellite = false;
+        if (toggleStyleBtn) {
+            toggleStyleBtn.addEventListener('click', () => {
+                isSatellite = !isSatellite;
+                map.setStyle(isSatellite ? 'mapbox://styles/mapbox/satellite-streets-v12' : 'mapbox://styles/mapbox/light-v11');
+                toggleStyleBtn.innerHTML = isSatellite
+                    ? '<i class="fas fa-layer-group"></i> Streets'
+                    : '<i class="fas fa-layer-group"></i> Satellite';
+
+                // Re-add markers after style change
+                map.once('style.load', () => {
+                    mapMarkers.forEach((spot) => {
+                        const color = categoryColors[spot.category] || '#64748b';
+                        const markerEl = document.createElement('div');
+                        markerEl.style.cssText = `
+                            width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+                            background: ${color}; border: 3px solid white;
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.08);
+                            transition: transform 0.2s ease, box-shadow 0.2s ease;
+                            display: flex; align-items: center; justify-content: center;
+                        `;
+                        markerEl.innerHTML = `<i class="fas fa-location-dot" style="color:white;font-size:13px;"></i>`;
+                        markerEl.addEventListener('mouseenter', () => { markerEl.style.transform = 'scale(1.3)'; });
+                        markerEl.addEventListener('mouseleave', () => { markerEl.style.transform = 'scale(1)'; });
+
+                        const rePopup = new mapboxgl.Popup({ offset: 20, closeButton: true, closeOnClick: false, maxWidth: '280px', className: 'nearby-map-popup' })
+                            .setHTML(`
+                                <div style="font-family:Inter,sans-serif;">
+                                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+                                        <span style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:999px;background:${color};color:white;font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">${spot.tag}</span>
+                                        <span style="font-size:11px;color:#64748b;display:flex;align-items:center;gap:3px;"><i class="fas fa-star" style="color:#f59e0b;font-size:10px;"></i> ${spot.rating}</span>
+                                    </div>
+                                    <p style="font-size:14px;font-weight:800;color:#0f172a;margin:0 0 4px;">${spot.name}</p>
+                                    <p style="font-size:12px;color:#64748b;margin:0;display:flex;align-items:center;gap:4px;"><i class="fas fa-location-dot" style="color:${color};font-size:10px;"></i> ${spot.location}</p>
+                                </div>
+                            `);
+
+                        new mapboxgl.Marker({ element: markerEl }).setLngLat([spot.lng, spot.lat]).setPopup(rePopup).addTo(map);
+                        markerEl.addEventListener('click', () => { map.flyTo({ center: [spot.lng, spot.lat], zoom: 13, pitch: 30, duration: 1200 }); });
+                    });
+                });
+            });
+        }
+    })();
 });
 </script>
+
+{{-- Mapbox popup overrides --}}
+<style>
+    .mapboxgl-popup-content {
+        border-radius: 16px !important;
+        padding: 14px 16px !important;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08) !important;
+        border: 1px solid rgba(0,0,0,0.06) !important;
+    }
+    .mapboxgl-popup-close-button {
+        font-size: 18px;
+        color: #94a3b8;
+        right: 8px;
+        top: 6px;
+    }
+    .mapboxgl-popup-close-button:hover {
+        color: #0f172a;
+        background: transparent;
+    }
+    .mapboxgl-popup-tip {
+        border-top-color: white !important;
+    }
+</style>
 @endsection
