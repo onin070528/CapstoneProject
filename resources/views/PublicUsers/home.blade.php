@@ -150,6 +150,59 @@
             </div>
         </section>
 
+        {{-- ── Interactive Map — Davao Oriental ───────────────────────────── --}}
+        <section id="nearby-map" class="pt-6 pb-2 scroll-mt-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {{-- Map card container --}}
+                <div class="rounded-3xl bg-white border border-slate-200 shadow-sm overflow-hidden">
+                    {{-- Map toolbar --}}
+                    <div class="flex items-center justify-between gap-3 px-5 sm:px-6 py-4 border-b border-slate-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-[#0e4f5c] flex items-center justify-center shadow-sm">
+                                <i class="fas fa-map-location-dot text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-800">Explore the Map</h3>
+                                <p class="text-[11px] text-slate-400 mt-0.5">Tourism spots across Davao Oriental · Click markers for details</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" id="mapFitAllBtn"
+                                class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#0e4f5c] transition px-3 py-2 rounded-xl hover:bg-slate-50 border border-slate-200">
+                                <i class="fas fa-expand"></i> Fit all
+                            </button>
+                            <button type="button" id="mapToggleStyleBtn"
+                                class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#0e4f5c] transition px-3 py-2 rounded-xl hover:bg-slate-50 border border-slate-200">
+                                <i class="fas fa-layer-group"></i> Satellite
+                            </button>
+                        </div>
+                    </div>
+
+                    {{-- Map container --}}
+                    <div id="nearbyMapContainer" style="height: 420px; width: 100%; position: relative;">
+                        {{-- Fallback if token is not set --}}
+                        <div id="mapFallback" class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 z-10" style="display:none;">
+                            <div class="w-16 h-16 rounded-2xl bg-slate-200 flex items-center justify-center mb-4">
+                                <i class="fas fa-map text-slate-400 text-2xl"></i>
+                            </div>
+                            <p class="text-sm font-semibold text-slate-600">Map requires a Mapbox public token</p>
+                            <p class="text-xs text-slate-400 mt-1">Add your <code class="bg-slate-200 px-1.5 py-0.5 rounded text-[11px]">pk.</code> token to <code class="bg-slate-200 px-1.5 py-0.5 rounded text-[11px]">VITE_MAPBOX_TOKEN</code> in .env</p>
+                        </div>
+                    </div>
+
+                    {{-- Map legend bar --}}
+                    <div class="flex items-center gap-4 flex-wrap px-5 sm:px-6 py-3 bg-slate-50/80 border-t border-slate-100">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">Legend</span>
+                        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-teal-500"></span><span class="text-[11px] text-slate-500">Destination</span></div>
+                        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span><span class="text-[11px] text-slate-500">Hotel</span></div>
+                        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span class="text-[11px] text-slate-500">Food & Souvenir</span></div>
+                        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span><span class="text-[11px] text-slate-500">Transport & Guide</span></div>
+                        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span><span class="text-[11px] text-slate-500">Emergency</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         {{-- Stats snapshot row --}}
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
