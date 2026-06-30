@@ -42,4 +42,9 @@ class Establishment extends Model
     {
         return $this->hasMany(Feedback::class);
     }
+
+    public function visitorRegistrations()
+    {
+        return $this->hasMany(VisitorRegistration::class);
+    }
 }

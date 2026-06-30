@@ -269,10 +269,9 @@
             @yield('admin-content')
         </main>
     </div>
-</div>
 
-<!-- Announcement/Advisory Broadcast Modal Overlay -->
-<div x-show="announcementModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs" x-cloak style="display: none;">
+    <!-- Announcement/Advisory Broadcast Modal Overlay -->
+    <div x-show="announcementModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs" x-cloak style="display: none;">
     <!-- Modal Container -->
     <div class="bg-white rounded-xl shadow-2xl border border-slate-100 w-full max-w-2xl overflow-hidden relative z-10 animate-modalIn" @click.away="announcementModalOpen = false">
         <!-- Header -->
@@ -362,6 +361,7 @@
             </div>
         </form>
     </div>
+</div>
 </div>
 
 <style>

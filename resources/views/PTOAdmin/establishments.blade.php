@@ -144,7 +144,7 @@
                         <td class="py-4 px-6 text-right">
                             <!-- Hidden QR container to be read by detail modal -->
                             <div id="qr-svg-{{ $est->id }}" class="hidden">
-                                {!! QrCode::size(220)->generate(route('feedback.show', $est->uuid)) !!}
+                                {!! QrCode::size(220)->generate(route('visitor.register', $est->uuid)) !!}
                             </div>
                             
                             <button 
@@ -160,7 +160,7 @@
                                     location: '{{ addslashes($est->location) }}',
                                     description: '{{ addslashes($est->description) }}',
                                     uuid: '{{ $est->uuid }}',
-                                    qrUrl: '{{ route('feedback.show', $est->uuid) }}'
+                                    qrUrl: '{{ route('visitor.register', $est->uuid) }}'
                                 })"
                                 class="text-[#0a4e5c] hover:underline text-xs font-bold bg-transparent border-0 cursor-pointer">
                                 View Details & QR

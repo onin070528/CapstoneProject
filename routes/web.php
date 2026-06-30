@@ -87,8 +87,8 @@ Route::get('/qr-test', function () {
     }
 });
 
-Route::get('/feedback/{uuid}', [HomeController::class, 'showFeedbackForm'])->name('feedback.show');
-Route::post('/feedback/{uuid}', [HomeController::class, 'submitFeedbackForm'])->name('feedback.submit');
+Route::get('/register-visit/{uuid}', [HomeController::class, 'showVisitorForm'])->name('visitor.register');
+Route::post('/register-visit/{uuid}', [HomeController::class, 'submitVisitorRegistration'])->name('visitor.submit');
 
 Route::post('/chatbot/query', [ChatbotController::class, 'query'])->name('chatbot.query');
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Establishment;
 use App\Models\Feedback;
+use App\Models\VisitorRegistration;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -108,36 +109,51 @@ class HomeController extends Controller
         return view('PublicUsers.emergency');
     }
 
-    public function showFeedbackForm($uuid)
+    /**
+     * Show the visitor registration form (QR code scan landing).
+     */
+    public function showVisitorForm($uuid)
     {
         $establishment = Establishment::where('uuid', $uuid)->firstOrFail();
-        return view('PublicUsers.feedback-form', compact('establishment'));
+        return view('PublicUsers.visitor-register', compact('establishment'));
     }
 
-    public function submitFeedbackForm(Request $request, $uuid)
+    /**
+     * Handle batch submission of visitor registrations.
+     */
+    public function submitVisitorRegistration(Request $request, $uuid)
     {
         $establishment = Establishment::where('uuid', $uuid)->firstOrFail();
 
         $validated = $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
-            'feedback_text' => 'required|string|max:1000',
-            'tourist_name' => 'nullable|string|max:255',
+            'visitors' => 'required|array|min:1',
+            'visitors.*.visitor_name' => 'required|string|max:255',
+            'visitors.*.gender' => 'required|in:Male,Female',
+            'visitors.*.origin_type' => 'required|in:Philippines,Foreigner',
+            'visitors.*.residency_code' => 'required|in:R,Prov,NR,FO',
+            'visitors.*.remarks' => 'nullable|string|max:500',
         ]);
 
-        Feedback::create([
-            'establishment_id' => $establishment->id,
-            'tourist_name' => $validated['tourist_name'] ?: 'Anonymous',
-            'rating' => $validated['rating'],
-            'feedback_text' => $validated['feedback_text'],
-            'visit_date' => now()->toDateString(),
-        ]);
+        // Get the last visitor number for this establishment today
+        $lastNumber = VisitorRegistration::where('establishment_id', $establishment->id)
+            ->whereDate('visit_date', now()->toDateString())
+            ->max('visitor_number') ?? 0;
 
-        // Recalculate average rating
-        $avgRating = $establishment->feedbacks()->avg('rating');
-        $establishment->update([
-            'rating' => round($avgRating, 1)
-        ]);
+        foreach ($validated['visitors'] as $index => $visitor) {
+            VisitorRegistration::create([
+                'establishment_id' => $establishment->id,
+                'visitor_number' => $lastNumber + $index + 1,
+                'visit_date' => now()->toDateString(),
+                'visitor_name' => $visitor['visitor_name'],
+                'gender' => $visitor['gender'],
+                'origin_type' => $visitor['origin_type'],
+                'residency_code' => $visitor['residency_code'],
+                'remarks' => $visitor['remarks'] ?? null,
+            ]);
+        }
 
-        return redirect()->back()->with('success', 'Thank you! Your feedback has been submitted successfully.');
+        $count = count($validated['visitors']);
+        return redirect()->back()->with('success', "{$count} visitor(s) registered successfully. Thank you!");
     }
 }
+
