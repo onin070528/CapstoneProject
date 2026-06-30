@@ -15,5 +15,9 @@
 </head>
 <body class="bg-gray-50">
     @yield('content')
+
+    @if(request()->routeIs('home', 'login', 'register'))
+        @include('partials.chatbot')
+    @endif
 </body>
 </html>

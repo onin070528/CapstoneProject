@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\PTOAdminController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ChatbotController;
 
 // ─────────────────────────────────────────────────────────────────
 // PUBLIC ROUTES (no auth required)
@@ -88,5 +89,7 @@ Route::get('/qr-test', function () {
 
 Route::get('/feedback/{uuid}', [HomeController::class, 'showFeedbackForm'])->name('feedback.show');
 Route::post('/feedback/{uuid}', [HomeController::class, 'submitFeedbackForm'])->name('feedback.submit');
+
+Route::post('/chatbot/query', [ChatbotController::class, 'query'])->name('chatbot.query');
 
 
